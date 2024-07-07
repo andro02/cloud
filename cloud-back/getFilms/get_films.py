@@ -12,5 +12,4 @@ def get_all(event, context):
     body = {
         'data': response['Items']
     }
-    print(body)
     return create_response(200, body)
