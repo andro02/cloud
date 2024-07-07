@@ -1,1 +1,10 @@
+
+<div class="container mt-3">
+
+<form class="form-inline my-2 my-lg-0 justify-content-end">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+</form>
+</div>
+
 <app-film-view *ngFor="let film of films" [film]="film" (download)="download($event)"></app-film-view>

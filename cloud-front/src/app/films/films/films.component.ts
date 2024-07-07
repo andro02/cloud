@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilmViewComponent } from '../film-view/film-view.component';
 import {Buffer} from 'buffer';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-films',
@@ -26,6 +27,7 @@ export class FilmsComponent {
     ).then(
       response => {
         this.films = response.data.data;
+        console.log(this.films);
       }
     );
 
