@@ -1,0 +1,165 @@
+org: cloudtim10
+app: cloud-back
+service: cloud-back
+
+provider:
+  name: aws
+  runtime: python3.12
+  stage: dev
+  region: eu-central-1
+  memorySize: 128
+  timeout: 10
+  environment:
+    USER_POOL: { Ref: UserPool }
+    USER_POOL_CLIENT: { Ref: UserClient }
+  apiGateway:
+    binaryMediaTypes:
+      - 'multipart/form-data'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - cognito-idp:AdminInitiateAuth
+            - cognito-idp:AdminCreateUser
+            - cognito-idp:AdminSetUserPassword
+          Resource: "*"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - "Fn::GetAtt": [films, Arn]
+
+functions:
+  login:
+    handler: login/login.login
+    package:
+      include: 'login/**'
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
+  register:
+    handler: register/register.register
+    package:
+      include: 'register/**'
+    events:
+      - http:
+          path: register
+          method: post
+          cors: true
+  uploadFile:
+    handler: uploadFile/upload_file.upload
+    package:
+      include: 'uploadFile/**'
+    url:
+      cors:
+        allowedOrigins:
+          - '*'
+        allowedHeaders:
+          - Authorization
+        allowedMethods:
+          - POST
+  downloadFile:
+    handler: downloadFile/download_file.download
+    package:
+      include: 'downloadFile/**' 
+    events:
+      - http:
+          path: downloadFilm
+          method: get
+          cors: true
+  createFilm:
+    handler: createFilms/create_films.create
+    package:
+      include: 'createFilms/**' 
+    events:
+      - http:
+          path: film
+          method: post
+          cors: true
+  getFilms:
+    handler: getFilms/get_films.get_all
+    package:
+      include: 'getFilm/**'
+    events:
+      - http:
+          path: film
+          method: get
+          cors: true
+        
+resources:
+  Resources:
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: user-pool
+        Schema:
+          - Name: email
+            Required: true
+            Mutable: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+        AutoVerifiedAttributes: ["email"]
+    UserClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: user-client
+        GenerateSecret: false
+        UserPoolId:
+          Ref: UserPool
+        AccessTokenValidity: 5
+        IdTokenValidity: 5
+        ExplicitAuthFlows:
+          - "ADMIN_NO_SRP_AUTH"
+    films:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: films-table
+        AttributeDefinitions:
+          - AttributeName: filename
+            AttributeType: S
+        KeySchema:
+          - AttributeName: filename
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    FilmBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: film-bucket
+    UploadRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: upload-policy
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - s3:PutObject
+                    - s3:PutObjectAcl
+                    - s3:GetObject
+                    - s3:GetObjectAcl
+                  Resource:
+                    - "arn:aws:s3:::film-bucket/*"
