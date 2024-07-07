@@ -2,39 +2,29 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Movie File:</h5>
-                    <p class="card-text">SampleMovieFile.mp4</p>
-                    <!-- Download Icon -->
-                    <a href="#" (click)="download.emit({filename: film.filename})" class="btn btn-primary mb-2" download>
-                        <i class="fas fa-download"></i> Download
-                    </a>
+            <h5 class="card-title">Filename:</h5>
+                    <p class="card-text">{{ film.filename  }}</p>
+                    <button type="button" (click)="download.emit({filename: film.filename})" class="btn btn-primary mb-2">
+                        Download
+                    </button>
             <div class="row">
                 <div class="col-sm-6">
-                    <!-- rate -->
                     <h5 class="card-title">Rate:</h5>
                     <p class="card-text">9.2</p>
-                    <!-- Movie Name -->
                     <h5 class="card-title">Name:</h5>
                     <p class="card-text">Inception</p>
-        
-                    <!-- Director -->
                     <h5 class="card-title">Director:</h5>
                     <p class="card-text">Christopher Nolan</p>
                 </div>
                 <div class="col-sm-6">
                     <h5 class="card-title">Genre:</h5>
                     <p class="card-text">Sci-Fi, Action, Thriller</p>
-                    
-                    <!-- Actors -->
                     <h5 class="card-title">Actors:</h5>
                     <p class="card-text">Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy</p>
-                    
-                    <!-- Release Date -->
                     <h5 class="card-title">Release Date:</h5>
                     <p class="card-text">July 16, 2010</p>
                 </div>
             </div>
-            <!-- Description -->
             <h5 class="card-title">Description:</h5>
             <p class="card-text">A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.</p>
             

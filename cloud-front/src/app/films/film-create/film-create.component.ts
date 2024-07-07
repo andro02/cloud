@@ -42,7 +42,7 @@ export class FilmCreateComponent {
 
     this.axiosService.request(
       "POST",
-      "https://sy26s4j3n5ijweci3tvuncdtcm0hnxmm.lambda-url.eu-central-1.on.aws/" + query,
+      "https://f0ujn573qg.execute-api.eu-central-1.amazonaws.com/uploadFilm" + query,
       fileToUpload,
       {
         "Content-Type": "multipart/form-data"

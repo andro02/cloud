@@ -64,14 +64,10 @@ functions:
     handler: uploadFile/upload_file.upload
     package:
       include: 'uploadFile/**'
-    url:
-      cors:
-        allowedOrigins:
-          - '*'
-        allowedHeaders:
-          - Authorization
-        allowedMethods:
-          - POST
+    events:
+      - httpApi:
+          path: /uploadFilm
+          method: post
   downloadFile:
     handler: downloadFile/download_file.download
     package:

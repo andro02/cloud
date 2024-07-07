@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3" (ngSubmit)="onSubmit()">
             <form class="registration-form">
                 <h2>Registration</h2>
                 <!-- Name Input -->
@@ -24,7 +24,7 @@
                     </select>
                 </div>
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="button" (click)="onSubmit()" class="btn btn-primary">Register</button>
             </form>
         </div>
     </div>
