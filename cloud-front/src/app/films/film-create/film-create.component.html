@@ -1,0 +1,50 @@
+<div class="container mt-4">
+    <h2>Movie Details Form</h2>
+    <form [formGroup]="uploadFileForm" (ngSubmit)="onSubmit()">
+        <!-- Movie File Input -->
+        <div class="form-group">
+            <label for="movieFile">Movie File:</label>
+            <input type="file" class="form-control-file" id="movieFile" name="movieFile" formControlName="file" (change)="onFileChanged($event)">
+        </div>
+
+        <!-- Movie Name Input -->
+        <div class="form-group">
+            <label for="movieName">Name:</label>
+            <input type="text" class="form-control" id="movieName" name="movieName" placeholder="Enter movie name">
+        </div>
+
+        <!-- Description Textarea -->
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter movie description"></textarea>
+        </div>
+
+        <!-- Director Input -->
+        <div class="form-group">
+            <label for="director">Director:</label>
+            <input type="text" class="form-control" id="director" name="director" placeholder="Enter director's name">
+        </div>
+
+        <!-- Genre Input -->
+        <div class="form-group">
+            <label for="genre">Genre:</label>
+            <input type="text" class="form-control" id="genre" name="genre" placeholder="Enter movie genre">
+        </div>
+
+        <!-- Actors Input -->
+        <div class="form-group">
+            <label for="actors">Actors:</label>
+            <input type="text" class="form-control" id="actors" name="actors" placeholder="Enter actors (comma-separated)">
+        </div>
+
+        <!-- Release Date Input -->
+        <div class="form-group">
+            <label for="releaseDate">Release Date:</label>
+            <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
