@@ -16,6 +16,13 @@ def create(event, context):
             'type': body['type'],
             'size': body['size'],
             'lastModifiedDate': body['lastModifiedDate'],
+            'creationDate': body['lastModifiedDate'],
+            'name': body['name'],
+            'description': body['description'],
+            'director': body['director'],
+            'genre': body['genre'],
+            'actors': body['actors'],
+            'releaseDate': body['releaseDate'],
         }
     )
 

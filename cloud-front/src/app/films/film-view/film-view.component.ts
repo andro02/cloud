@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-film-view',
   standalone: true,

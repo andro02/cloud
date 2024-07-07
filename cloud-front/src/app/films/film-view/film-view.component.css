@@ -9,7 +9,6 @@
     padding: 20px;
 }
 .card-title {
-    font-weight: bold;
     color: #333;
 }
 .card-text {
@@ -17,4 +16,7 @@
 }
 .filedetails{
     border-top: 2px black;;
+}
+h4 span {
+    font-weight: normal;
 }

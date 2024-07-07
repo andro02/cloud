@@ -53,6 +53,7 @@ export class FilmCreateComponent {
 
     if (form.checkValidity() !== false) {
 
+      const uploadFileData = { ...this.uploadFileForm.value };
       const fileToUpload = this.uploadFileForm.controls["fileToUpload"].value;
       const filename = fileToUpload['name'];
 
@@ -73,11 +74,12 @@ export class FilmCreateComponent {
         'size': fileToUpload['size'],
         'lastModifiedDate': fileToUpload['lastModifiedDate'],
         'creationDate': fileToUpload['lastModifiedDate'],
-        'name': fileToUpload['name'],
-        'description': fileToUpload['description'],
-        'director': fileToUpload['director'],
-        'genre': fileToUpload['genre'],
-        'releaseDate': fileToUpload['releaseDate'],
+        'name': uploadFileData.name,
+        'description': uploadFileData.description,
+        'director': uploadFileData.director,
+        'genre': uploadFileData.genre,
+        'actors': uploadFileData.actors,
+        'releaseDate': uploadFileData.releaseDate
       }
 
       this.axiosService.request(
