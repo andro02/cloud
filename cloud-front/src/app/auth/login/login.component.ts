@@ -21,7 +21,6 @@ export class LoginComponent {
       {}
     ).then(
       response => {
-        console.log(response)
         this.axiosService.setAuthToken(response.data.AccessToken);
       }
     ).catch(

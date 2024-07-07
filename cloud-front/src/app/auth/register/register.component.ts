@@ -21,7 +21,6 @@ export class RegisterComponent {
       {}
     ).then(
       response => {
-        console.log(response)
       }
     );
 

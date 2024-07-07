@@ -27,7 +27,6 @@ export class FilmsComponent {
     ).then(
       response => {
         this.films = response.data.data;
-        console.log(this.films);
       }
     );
 

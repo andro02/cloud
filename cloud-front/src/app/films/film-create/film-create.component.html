@@ -1,50 +1,51 @@
 <div class="container mt-4">
-    <h2>Movie Details Form</h2>
-    <form [formGroup]="uploadFileForm" (ngSubmit)="onSubmit()">
-        <!-- Movie File Input -->
+    <h2 class="my-5 text-center">Upload Movie</h2>
+    <form [formGroup]="uploadFileForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
         <div class="form-group">
-            <label for="movieFile">Movie File:</label>
-            <input type="file" class="form-control-file" id="movieFile" name="movieFile" formControlName="file" (change)="onFileChanged($event)">
+            <label for="movieFile">Upload movie:</label>
+            <div class="custom-file">
+                <input required type="file" class="custom-file-input" id="movieFile" name="movieFile" formControlName="file" (change)="onFileChanged($event)">
+                <label for="movieFile" class="custom-file-label">Choose file</label>
+                <div class="invalid-feedback">This input is not valid!</div>
+            </div>
         </div>
 
-        <!-- Movie Name Input -->
         <div class="form-group">
             <label for="movieName">Name:</label>
-            <input type="text" class="form-control" id="movieName" name="movieName" placeholder="Enter movie name">
+            <input required type="text" class="form-control" id="movieName" name="movieName" formControlName="name" placeholder="Enter movie name">
+            <div class="invalid-feedback">This input is not valid!</div>
         </div>
 
-        <!-- Description Textarea -->
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter movie description"></textarea>
+            <textarea required class="form-control" id="description" name="description" rows="3" formControlName="description" placeholder="Enter movie description"></textarea>
+            <div class="invalid-feedback">This input is not valid!</div>
         </div>
 
-        <!-- Director Input -->
         <div class="form-group">
             <label for="director">Director:</label>
-            <input type="text" class="form-control" id="director" name="director" placeholder="Enter director's name">
+            <input required type="text" class="form-control" id="director" name="director" formControlName="director" placeholder="Enter director's name">
+            <div class="invalid-feedback">This input is not valid!</div>
         </div>
 
-        <!-- Genre Input -->
         <div class="form-group">
             <label for="genre">Genre:</label>
-            <input type="text" class="form-control" id="genre" name="genre" placeholder="Enter movie genre">
+            <input required type="text" class="form-control" id="genre" name="genre" formControlName="genre" placeholder="Enter movie genre">
+            <div class="invalid-feedback">This input is not valid!</div>
         </div>
 
-        <!-- Actors Input -->
         <div class="form-group">
             <label for="actors">Actors:</label>
-            <input type="text" class="form-control" id="actors" name="actors" placeholder="Enter actors (comma-separated)">
+            <input required type="text" class="form-control" id="actors" name="actors" formControlName="actors" placeholder="Enter actors (comma-separated)">
+            <div class="invalid-feedback">This input is not valid!</div>
         </div>
 
-        <!-- Release Date Input -->
         <div class="form-group">
             <label for="releaseDate">Release Date:</label>
-            <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+            <input required type="date" class="form-control" id="releaseDate" formControlName="releaseDate" name="releaseDate">
+            <div class="invalid-feedback">This input is not valid!</div>
         </div>
 
-        <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
