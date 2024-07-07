@@ -12,6 +12,13 @@ provider:
   environment:
     USER_POOL: { Ref: UserPool }
     USER_POOL_CLIENT: { Ref: UserClient }
+  httpApi:
+    cors: true
+    authorizers:
+      userAuthorizer:
+        identitySource: $request.header.Authorization
+        issuerUrl: {"Fn::Join": ["", ["https://cognito-idp.eu-central-1.amazonaws.com/", { Ref: UserPool }]]}
+        audience: { Ref: UserClient }
   apiGateway:
     binaryMediaTypes:
       - 'multipart/form-data'
@@ -24,18 +31,17 @@ provider:
             - cognito-idp:AdminCreateUser
             - cognito-idp:AdminSetUserPassword
           Resource: "*"
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource:
-        - "Fn::GetAtt": [films, Arn]
+        - Effect: Allow
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - "Fn::GetAtt": [films, Arn]
 
 functions:
   login:
@@ -43,19 +49,17 @@ functions:
     package:
       include: 'login/**'
     events:
-      - http:
-          path: login
+      - httpApi:
+          path: /login
           method: post
-          cors: true
   register:
     handler: register/register.register
     package:
       include: 'register/**'
     events:
-      - http:
-          path: register
+      - httpApi:
+          path: /register
           method: post
-          cors: true
   uploadFile:
     handler: uploadFile/upload_file.upload
     package:
@@ -73,28 +77,25 @@ functions:
     package:
       include: 'downloadFile/**' 
     events:
-      - http:
-          path: downloadFilm
+      - httpApi:
+          path: /downloadFilm
           method: get
-          cors: true
   createFilm:
     handler: createFilms/create_films.create
     package:
       include: 'createFilms/**' 
     events:
-      - http:
-          path: film
+      - httpApi:
+          path: /film
           method: post
-          cors: true
   getFilms:
     handler: getFilms/get_films.get_all
     package:
       include: 'getFilm/**'
     events:
-      - http:
-          path: film
+      - httpApi:
+          path: /film
           method: get
-          cors: true
         
 resources:
   Resources:
