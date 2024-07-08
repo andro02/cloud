@@ -3,8 +3,7 @@ import { AxiosService } from '../../axios.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilmViewComponent } from '../film-view/film-view.component';
-import {Buffer} from 'buffer';
-import { DatePipe } from '@angular/common';
+import {Buffer} from 'buffer'; 
 
 @Component({
   selector: 'app-films',
@@ -17,11 +16,12 @@ export class FilmsComponent {
   films: any = [];
 
   constructor(private axiosService: AxiosService){}
+
   ngOnInit() {
 
     this.axiosService.request(
       "GET",
-      "https://f0ujn573qg.execute-api.eu-central-1.amazonaws.com//film",
+      "/film",
       null,
       {}
     ).then(
@@ -38,7 +38,7 @@ export class FilmsComponent {
 
     this.axiosService.request(
       "GET",
-      "https://f0ujn573qg.execute-api.eu-central-1.amazonaws.com/downloadFilm" + query,
+      "/downloadFilm" + query,
       null,
       {}
     ).then(

@@ -20,6 +20,7 @@ output.mp4
 __pycache__
 decode.py
 *.json
+node_modules
 
 # Serverless directories
 .serverless

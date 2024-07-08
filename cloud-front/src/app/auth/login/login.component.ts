@@ -1,33 +1,60 @@
 import { Component } from '@angular/core';
 import { AxiosService } from '../../axios.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  constructor(private axiosService: AxiosService) { }
+  loginForm: FormGroup;
+
+  constructor(private axiosService: AxiosService, private formBuilder: FormBuilder, private router: Router) {
+
+    this.loginForm = this.formBuilder.group({
+      email: [null, [Validators.required]],
+      password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+    });
+    
+  }
   
   onSubmit(): void {
 
-    this.axiosService.request(
-      "POST",
-      "https://f0ujn573qg.execute-api.eu-central-1.amazonaws.com/login",
-      {'email':'nov@gmail.com', 'password':'sifra123'},
-      {}
-    ).then(
-      response => {
-        this.axiosService.setAuthToken(response.data.AccessToken);
-      }
-    ).catch(
-      error => {
-        this.axiosService.setAuthToken(null);
-      }
-    );
+    const form = document.getElementsByClassName('needs-validation')[0] as HTMLFormElement;
+
+    if (!(form.checkValidity() === false)) {
+      
+      const loginData = { ...this.loginForm.value };
+
+      this.axiosService.request(
+        "POST",
+        "/login",
+        {
+          'email': loginData.email,
+          'password': loginData.password,
+        },
+        {}
+      ).then(
+        response => {
+          this.axiosService.setAuthToken(response.data.AccessToken);
+          this.router.navigate(['films']);
+        }
+      ).catch(
+        error => {
+          this.axiosService.setAuthToken(null);
+          this.loginForm.setErrors({ notFound: true });
+        }
+      );
+
+    }
+
+    form.classList.add('was-validated');
 
   }
 
