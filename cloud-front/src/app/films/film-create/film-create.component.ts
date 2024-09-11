@@ -63,9 +63,7 @@ export class FilmCreateComponent {
         "POST",
         "/uploadFilm" + query,
         fileToUpload,
-        {
-          "Content-Type": "multipart/form-data"
-        }
+        "multipart/form-data"
       );
 
       const fileInformation = {
@@ -79,16 +77,15 @@ export class FilmCreateComponent {
         'director': uploadFileData.director,
         'genre': uploadFileData.genre,
         'actors': uploadFileData.actors,
-        'releaseDate': uploadFileData.releaseDate
+        'releaseDate': uploadFileData.releaseDate,
+        'userEmail': this.axiosService.getEmail()
       }
 
       this.axiosService.request(
         "POST",
         "/film",
         fileInformation,
-        {
-          "Content-Type": "application/json"
-        }
+        "application/json"
       );
 
     }

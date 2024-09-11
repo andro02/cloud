@@ -36,15 +36,29 @@ export class AxiosService {
     return window.localStorage.getItem("auth_token");
   }
 
-  setAuthToken(token: string | null): void {
-    if (token !== null) {
+  getRole(): string | null {
+    return window.localStorage.getItem("role");
+  }
+
+  setAuthToken(token: string | null, role: string | null): void {
+    if (token !== null && role !== null) {
       window.localStorage.setItem("auth_token", token);
+      window.localStorage.setItem("role", role);
     } else {
       window.localStorage.removeItem("auth_token");
+      window.localStorage.removeItem("role");
     }
   }
 
-  request(method: string, url: string, data: any, headers: any): Promise<any> {
+  request(method: string, url: string, data: any, contentType: string): Promise<any> {
+
+    let headers: any = {};
+    if (this.getAuthToken() !== null) {
+      headers = {
+        "Content-Type": contentType,
+        "Authorization": "Bearer " + this.getAuthToken()
+      };
+    }
 
     return axios({
       method: method as Method,

@@ -50,15 +50,15 @@ export class RegisterComponent {
           'birthday': registerData.birthday,
           'password': registerData.password,
         },
-        {}
+        "application/json"
       ).then(
         response => {
-          this.axiosService.setAuthToken(response.data.AccessToken);
+          this.axiosService.setAuthToken(response.data.body.AccessToken, response.data.role);
           this.router.navigate(['films']);
         }
       ).catch(
         error => {
-          this.axiosService.setAuthToken(null);
+          this.axiosService.setAuthToken(null, null);
           this.registerForm.setErrors({ alreadyExists: true });
         }
       );
