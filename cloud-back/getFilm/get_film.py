@@ -7,11 +7,11 @@ from utility.utils import create_response
 dynamodb = boto3.resource('dynamodb')
 table_name = 'notifications-table'
 
-def get_all(event, context):
-    userEmail = event.get('queryStringParameters', {}).get('userEmail')
+def get(event, context):
+    filename = event.get('queryStringParameters', {}).get('filename')
     table = dynamodb.Table(table_name)
     response = table.scan(
-        FilterExpression=Attr('userEmail').eq(userEmail)
+        FilterExpression=Attr('filename').eq(filename)
     )
     body = {
         'data': response['Items']

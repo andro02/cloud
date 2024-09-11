@@ -33,39 +33,35 @@ export class FilmUpdateComponent {
       releaseDate: [null, Validators.compose([Validators.required])],
     })
   }
+  
   ngOnInit(): void {
     this.axiosService.request(
       "GET",
-      "/film",
+      "/film/filename?filename=" + this.filmname,
       null,
-      {
-        'Authorization': 'Bearer ' + this.axiosService.getAuthToken()
-      }
+      "application/json"
     ).then(
       response => {
-        // console.log(response.data.data);
-        response.data.data.forEach((f: any) => {
-          if(f.filename.toLowerCase() == this.filmname.toLowerCase()){
-            this.film = f;
-            console.log(this.film);
+        console.log(response.data.data);
+        // response.data.data.forEach((f: any) => {
 
-            this.filmForm.patchValue({
-              file: this.film.file,
-              name: this.film?.name,
-              fileToUpload: this.film.file,
-              description: this.film.description,
-              director: this.film.director,
-              genre: this.film.genre,
-              actors: this.film.actors,
-              releaseDate: this.film.releaseDate,
-            });
+        //   if(f.filename.toLowerCase() == this.filmname.toLowerCase()){
+        //     this.film = f;
+        //     console.log(this.film);
 
+        //     this.filmForm.patchValue({
+        //       file: this.film.file,
+        //       name: this.film?.name,
+        //       fileToUpload: this.film.file,
+        //       description: this.film.description,
+        //       director: this.film.director,
+        //       genre: this.film.genre,
+        //       actors: this.film.actors,
+        //       releaseDate: this.film.releaseDate,
+        //     });
 
-
-          }
-
-          
-        });
+        //   }
+        // });
         
       }
     );
