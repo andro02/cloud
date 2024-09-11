@@ -39,7 +39,7 @@ export class LoginComponent {
           'email': loginData.email,
           'password': loginData.password,
         },
-        {}
+        "application/json"
       ).then(
         response => {
           this.axiosService.setAuthToken(response.data.AccessToken);

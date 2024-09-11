@@ -89,6 +89,8 @@ functions:
       - httpApi:
           path: /uploadFilm
           method: post
+          authorizer:
+            name: adminAuthorizer
   downloadFile:
     handler: downloadFile/download_file.download
     package:
@@ -97,6 +99,8 @@ functions:
       - httpApi:
           path: /downloadFilm
           method: get
+          authorizer:
+            name: clientAuthorizer
   createFilm:
     handler: createFilms/create_films.create
     package:
@@ -105,6 +109,8 @@ functions:
       - httpApi:
           path: /film
           method: post
+          authorizer:
+            name: adminAuthorizer
   getFilms:
     handler: getFilms/get_films.get_all
     package:
@@ -188,6 +194,34 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: filename
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    favourites:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: favourites-table
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    counterTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: counter-table
+        AttributeDefinitions:
+          - AttributeName: counterName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: counterName
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1

@@ -63,9 +63,7 @@ export class FilmCreateComponent {
         "POST",
         "/uploadFilm" + query,
         fileToUpload,
-        {
-          "Content-Type": "multipart/form-data"
-        }
+        "multipart/form-data"
       );
 
       const fileInformation = {
@@ -86,9 +84,7 @@ export class FilmCreateComponent {
         "POST",
         "/film",
         fileInformation,
-        {
-          "Content-Type": "application/json"
-        }
+        "application/json"
       );
 
     }

@@ -7,9 +7,7 @@ ADMIN_POOL_CLIENT = '5afcgqvifnkdv00637t72c25id'
 REGION = 'eu-central-1'
 
 def authorizer(event, context):
-    print(event)
     token = event['identitySource'][0].split(' ')[1]
-    print(token)
 
     try:
         decoded = jwt_sync.decode(token, REGION, CLIENT_POOL, app_client_id=CLIENT_POOL_CLIENT)

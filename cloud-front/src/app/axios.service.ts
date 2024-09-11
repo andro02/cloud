@@ -44,7 +44,15 @@ export class AxiosService {
     }
   }
 
-  request(method: string, url: string, data: any, headers: any): Promise<any> {
+  request(method: string, url: string, data: any, contentType: string): Promise<any> {
+
+    let headers: any = {};
+    if (this.getAuthToken() !== null) {
+      headers = {
+        "Content-Type": contentType,
+        "Authorization": "Bearer " + this.getAuthToken()
+      };
+    }
 
     return axios({
       method: method as Method,

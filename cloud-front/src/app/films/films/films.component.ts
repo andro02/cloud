@@ -23,9 +23,7 @@ export class FilmsComponent {
       "GET",
       "/film",
       null,
-      {
-        'Authorization': 'Bearer ' + this.axiosService.getAuthToken()
-      }
+      "application/json"
     ).then(
       response => {
         this.films = response.data.data;
@@ -42,7 +40,7 @@ export class FilmsComponent {
       "GET",
       "/downloadFilm" + query,
       null,
-      {}
+      "application/json"
     ).then(
       response => {
         const contentType = response["headers"]["Content-Type"];

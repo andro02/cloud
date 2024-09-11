@@ -1,18 +1,40 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { CreateFavouriteModalComponent } from '../../favourites/create-favourite-modal/create-favourite-modal.component';
 
 @Component({
   selector: 'app-film-view',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, CreateFavouriteModalComponent],
   templateUrl: './film-view.component.html',
   styleUrl: './film-view.component.css'
 })
 
 export class FilmViewComponent {
   @Input() film: any = null;
-  @Output() download = new EventEmitter();
+  @Output() download = new EventEmitter();  
+  @ViewChild(CreateFavouriteModalComponent) createFavouriteModal!: CreateFavouriteModalComponent;
 
-  constructor(public datePipe: DatePipe){};
+  actors: String[] | null = null;
+  genres: String[] | null = null;
+
+  constructor(public datePipe: DatePipe) {
+  };
+
+  ngOnInit(): void {
+    if (this.film.actors) {
+      this.actors = this.film.actors.split(",");
+    }
+    if (this.film.actors) {
+      this.genres = this.film.genre.split(",");
+    }
+  }
+
+  openFavouritesDialog(name: String): void {
+    if (this.createFavouriteModal) {
+      this.createFavouriteModal.name = name;
+      this.createFavouriteModal.openModal();
+    }
+  }
 
 }

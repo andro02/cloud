@@ -50,7 +50,7 @@ export class RegisterComponent {
           'birthday': registerData.birthday,
           'password': registerData.password,
         },
-        {}
+        "application/json"
       ).then(
         response => {
           this.axiosService.setAuthToken(response.data.AccessToken);
