@@ -20,7 +20,7 @@ export class FilmUpdateComponent {
   
   constructor(public datePipe: DatePipe, private fb: FormBuilder, private axiosService: AxiosService){
     
-    this.filmname = String(this.route.snapshot.params['id']);
+    this.filmname = String(this.route.snapshot.params['filename']);
 
     this.filmForm = this.fb.group({
       file: [null, Validators.compose([Validators.required])],
@@ -33,46 +33,46 @@ export class FilmUpdateComponent {
       releaseDate: [null, Validators.compose([Validators.required])],
     })
   }
-  
-  ngOnInit(): void {
-    this.axiosService.request(
-      "GET",
-      "/film/filename?filename=" + this.filmname,
-      null,
-      "application/json"
-    ).then(
-      response => {
-        console.log(response.data.data);
-        // response.data.data.forEach((f: any) => {
 
-        //   if(f.filename.toLowerCase() == this.filmname.toLowerCase()){
-        //     this.film = f;
-        //     console.log(this.film);
+  // ngOnInit(): void {
+  //   this.axiosService.request(
+  //     "GET",
+  //     "/film/filename?filename=" + this.filmname,
+  //     null,
+  //     "application/json"
+  //   ).then(
+  //     response => {
+  //       console.log(response.data.data);
+  //       // response.data.data.forEach((f: any) => {
 
-        //     this.filmForm.patchValue({
-        //       file: this.film.file,
-        //       name: this.film?.name,
-        //       fileToUpload: this.film.file,
-        //       description: this.film.description,
-        //       director: this.film.director,
-        //       genre: this.film.genre,
-        //       actors: this.film.actors,
-        //       releaseDate: this.film.releaseDate,
-        //     });
+  //       //   if(f.filename.toLowerCase() == this.filmname.toLowerCase()){
+  //       //     this.film = f;
+  //       //     console.log(this.film);
 
-        //   }
-        // });
+  //       //     this.filmForm.patchValue({
+  //       //       file: this.film.file,
+  //       //       name: this.film?.name,
+  //       //       fileToUpload: this.film.file,
+  //       //       description: this.film.description,
+  //       //       director: this.film.director,
+  //       //       genre: this.film.genre,
+  //       //       actors: this.film.actors,
+  //       //       releaseDate: this.film.releaseDate,
+  //       //     });
+
+  //       //   }
+  //       // });
         
-      }
-    );
+  //     }
+  //   );
 
 
-    // console.log(this.film.filename);
+  //   // console.log(this.film.filename);
 
 
-    // Initialize form with existing film data if needed
+  //   // Initialize form with existing film data if needed
     
-  }
+  // }
 
 
   

@@ -15,10 +15,12 @@ export class NavbarComponent {
   notifications: any[] = [];
 
   constructor(public axiosService: AxiosService, private router: Router) {
-    this.getNotifications()
-    interval(1000000).subscribe(() => {
-      this.getNotifications();
-  });
+    if (this.axiosService.getRole() == 'Client') {
+      this.getNotifications()
+      interval(1000000).subscribe(() => {
+        this.getNotifications();
+      });
+    }
   }
 
   getNotifications(): void {
