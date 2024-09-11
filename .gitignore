@@ -21,6 +21,7 @@ __pycache__
 decode.py
 *.json
 node_modules
+cloud-back/authorizer/package/
 
 # Serverless directories
 .serverless
