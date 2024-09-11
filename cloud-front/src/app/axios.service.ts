@@ -8,6 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AxiosService {
 
   constructor() {
+    window.localStorage.removeItem("auth_token");
     axios.defaults.baseURL = 'https://f0ujn573qg.execute-api.eu-central-1.amazonaws.com';
     //axios.defaults.baseURL = 'http://localhost:3000';
     //axios.defaults.headers.post['Content-Type'] = 'application/json';
