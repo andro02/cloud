@@ -14,13 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 export class FilmUpdateComponent {
   // @Input() film: any = null;
   route: ActivatedRoute = inject(ActivatedRoute);
-  filmname = '';
+  filename = '';
   film: any;
   filmForm: FormGroup;
   
   constructor(public datePipe: DatePipe, private fb: FormBuilder, private axiosService: AxiosService){
-    
-    this.filmname = String(this.route.snapshot.params['id']);
+
+    this.filename = this.route.snapshot.params['id'];
+
 
     this.filmForm = this.fb.group({
       file: [null, Validators.compose([Validators.required])],
@@ -36,36 +37,45 @@ export class FilmUpdateComponent {
   ngOnInit(): void {
     this.axiosService.request(
       "GET",
-      "/film",
+      "/film/filename?filename=" + this.filename,
       null,
-      {
-        'Authorization': 'Bearer ' + this.axiosService.getAuthToken()
-      }
+      "application/json"
     ).then(
       response => {
         // console.log(response.data.data);
-        response.data.data.forEach((f: any) => {
-          if(f.filename.toLowerCase() == this.filmname.toLowerCase()){
-            this.film = f;
-            console.log(this.film);
-
-            this.filmForm.patchValue({
-              file: this.film.file,
-              name: this.film?.name,
-              fileToUpload: this.film.file,
-              description: this.film.description,
-              director: this.film.director,
-              genre: this.film.genre,
-              actors: this.film.actors,
-              releaseDate: this.film.releaseDate,
-            });
-
-
-
-          }
-
-          
+        
+        this.filmForm.patchValue({
+          file: response.data.fileName,
+          name: response.data.fileName,
+          fileToUpload: response.data.fileToUpload,
+          description: response.data.description,
+          director: response.data.director,
+          genre: response.data.fileName,
+          actors: response.data.actors,
+          releaseDate: response.data.releaseDate,
         });
+        // response.data.data.forEach((f: any) => {
+        //   if(f.filename.toLowerCase() == this.filename.toLowerCase()){
+        //     this.film = f;
+        //     console.log(this.film);
+
+        //     this.filmForm.patchValue({
+        //       file: this.film.file,
+        //       name: this.film?.name,
+        //       fileToUpload: this.film.file,
+        //       description: this.film.description,
+        //       director: this.film.director,
+        //       genre: this.film.genre,
+        //       actors: this.film.actors,
+        //       releaseDate: this.film.releaseDate,
+        //     });
+
+
+
+        //   }
+
+
+        // });
         
       }
     );
