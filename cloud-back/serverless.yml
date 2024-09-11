@@ -12,6 +12,7 @@ package:
     - package.json
     - package-lock.json
     - requirements.txt
+    - authorizer/**
 
 provider:
   name: aws
@@ -21,15 +22,22 @@ provider:
   memorySize: 128
   timeout: 10
   environment:
-    USER_POOL: eu-central-1_pjuB4jsVW #{ Ref: UserPool }
-    USER_POOL_CLIENT: 6god96rqt3k54bart9af35easl #{ Ref: UserClient }
+    REGION: eu-central-1
+    CLIENT_POOL: { Ref: ClientPool }
+    CLIENT_POOL_CLIENT: { Ref: ClientPoolClient }
+    ADMIN_POOL: { Ref: AdminPool }
+    ADMIN_POOL_CLIENT: { Ref: AdminPoolClient }
   httpApi:
     cors: true
     authorizers:
-      userAuthorizer:
+      clientAuthorizer:
         identitySource: $request.header.Authorization
-        issuerUrl: {"Fn::Join": ["", ["https://cognito-idp.eu-central-1.amazonaws.com/", { Ref: UserPool }]]}
-        audience: { Ref: UserClient }
+        issuerUrl: {"Fn::Join": ["", ["https://cognito-idp.eu-central-1.amazonaws.com/", { Ref: ClientPool }]]}
+        audience: { Ref: ClientPoolClient }
+      adminAuthorizer:
+        identitySource: $request.header.Authorization
+        issuerUrl: {"Fn::Join": ["", ["https://cognito-idp.eu-central-1.amazonaws.com/", { Ref: AdminPool }]]}
+        audience: { Ref: AdminPoolClient }
   apiGateway:
     binaryMediaTypes:
       - 'multipart/form-data'
@@ -41,6 +49,8 @@ provider:
             - cognito-idp:AdminInitiateAuth
             - cognito-idp:AdminCreateUser
             - cognito-idp:AdminSetUserPassword
+            - cognito-idp:AdminAddUserToGroup
+            - cognito-idp:ListUsers
           Resource: "*"
         - Effect: Allow
           Action:
@@ -106,10 +116,10 @@ functions:
         
 resources:
   Resources:
-    UserPool:
+    ClientPool:
       Type: AWS::Cognito::UserPool
       Properties:
-        UserPoolName: user-pool
+        UserPoolName: client-pool
         Schema:
           - Name: email
             Mutable: true
@@ -126,13 +136,44 @@ resources:
           PasswordPolicy:
             MinimumLength: 6
         AutoVerifiedAttributes: ["email"]
-    UserClient:
+    AdminPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: admin-pool
+        Schema:
+          - Name: email
+            Mutable: true
+            Required: true
+          - Name: given_name
+            Mutable: true
+          - Name: family_name
+            Mutable: true
+          - Name: nickname
+            Mutable: true
+          - Name: birthdate
+            Mutable: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+        AutoVerifiedAttributes: ["email"]
+    ClientPoolClient:
       Type: AWS::Cognito::UserPoolClient
       Properties:
-        ClientName: user-client
+        ClientName: client-pool-client
         GenerateSecret: false
         UserPoolId:
-          Ref: UserPool
+          Ref: ClientPool
+        AccessTokenValidity: 5
+        IdTokenValidity: 5
+        ExplicitAuthFlows:
+          - "ADMIN_NO_SRP_AUTH"
+    AdminPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: admin-pool-client
+        GenerateSecret: false
+        UserPoolId:
+          Ref: AdminPool
         AccessTokenValidity: 5
         IdTokenValidity: 5
         ExplicitAuthFlows:
@@ -155,30 +196,34 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: film-bucket
-    UploadRole:
-      Type: AWS::IAM::Role
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service:
-                  - lambda.amazonaws.com
-              Action: sts:AssumeRole
-        Policies:
-          - PolicyName: upload-policy
-            PolicyDocument:
-              Version: "2012-10-17"
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - s3:PutObject
-                    - s3:PutObjectAcl
-                    - s3:GetObject
-                    - s3:GetObjectAcl
-                  Resource:
-                    - "arn:aws:s3:::film-bucket/*"
+    # UploadRole:
+    #   Type: AWS::IAM::Role
+    #   Properties:
+    #     AssumeRolePolicyDocument:
+    #       Version: "2012-10-17"
+    #       Statement:
+    #         - Effect: Allow
+    #           Principal:
+    #             Service:
+    #               - lambda.amazonaws.com
+    #           Action: sts:AssumeRole
+    #     Policies:
+    #       - PolicyName: upload-policy
+    #         PolicyDocument:
+    #           Version: "2012-10-17"
+    #           Statement:
+    #             - Effect: Allow
+    #               Action:
+    #                 - s3:PutObject
+    #                 - s3:PutObjectAcl
+    #                 - s3:GetObject
+    #                 - s3:GetObjectAcl
+    #               Resource:
+    #                 - "arn:aws:s3:::film-bucket/*"
 
 plugins:
   - serverless-offline
+custom:
+  serverless-offline:
+    useChildProcesses: true
+    noAuth: true

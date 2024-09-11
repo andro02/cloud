@@ -1,22 +1,34 @@
-
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-6 d-flex align-items-center">
-                    <h4 class="mb-0">Filename: <span>{{film.filename}}</span></h4>
-                </div>
-                <div class="col-sm-6 d-flex justify-content-end">
-                    <div class="d-flex align-items-center">
-                        <button (click)="download.emit({filename: film.filename})" class="btn btn-primary">
-                            Download
-                        </button>
-                    </div>
+<div class="card my-5">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 d-flex align-items-center">
+                <h4 class="mb-0">Filename: <span>{{film.filename}}</span></h4>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-end">
+                <div class="d-flex align-items-center">
+                    <button (click)="download.emit({filename: film.filename})" class="btn btn-info">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
-            <hr>
-            <h4 class="my-4">Film information</h4>
-            <div class="row">
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-6 d-flex align-items-center">
+                <h4 class="mb-0">Film information</h4>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-end">
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-info" data-toggle="collapse" href="#filmInformationCollapse" role="button" aria-expanded="true" aria-controls="filmInformationCollapse">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse show" id="filmInformationCollapse">
+            <div class="row pt-4">
                 <div class="col-sm-4">
                     <h5 class="card-title">Rate:</h5>
                     <p class="card-text">9.2</p>
@@ -38,10 +50,25 @@
             </div>
             <h5 class="card-title">Description:</h5>
             <p class="card-text">{{ film.description }}</p>
-            
-            <hr>
-            <h4 class="my-4">File Details</h4>
-            <div class="row filedetails">
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-6 d-flex align-items-center">
+                <h4 class="mb-0">File Details</h4>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-end">
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-info" data-toggle="collapse" href="#fileDetailsCollapse" role="button" aria-expanded="false" aria-controls="filmInformationCollapse">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="collapse" id="fileDetailsCollapse">
+            <div class="row filedetails pt-4">
                 <div class="col-sm-3">
                     <h5 class="card-title">Date created:</h5>
                     <p class="card-text">{{ datePipe.transform(film.creationDate, "yyyy-MM-dd") }}</p>
@@ -58,9 +85,8 @@
                     <h5 class="card-title">Date updated:</h5>
                     <p class="card-text">{{ datePipe.transform(film.lastModifiedDate, "yyyy-MM-dd") }}</p>
                 </div>
-
             </div>
-            
         </div>
+        
     </div>
 </div>

@@ -23,7 +23,9 @@ export class FilmsComponent {
       "GET",
       "/film",
       null,
-      {}
+      {
+        'Authorization': 'Bearer ' + this.axiosService.getAuthToken()
+      }
     ).then(
       response => {
         this.films = response.data.data;
