@@ -42,16 +42,26 @@
                     <p class="card-text">{{ film.name }}</p>
                 </div>
                 <div class="col-sm-4">
-                    <h5 class="card-title">Genre:</h5>
-                    <p class="card-text">{{ film.genre }}</p>
+                    <h5 class="card-title">Genres:</h5>
+                    <p class="card-text">
+                        <span *ngFor="let genre of this.genres; last as isLast" (click)="openFavouritesDialog(genre); $event.preventDefault()">
+                            <a href="#">{{ genre }}</a>
+                            <span *ngIf="!isLast">, </span> 
+                        </span>
+                    </p>
                     <h5 class="card-title">Release Date:</h5>
                     <p class="card-text">{{ datePipe.transform(film.releaseDate, "yyyy-MM-dd") }}</p>
                 </div>
                 <div class="col-sm-4">
                     <h5 class="card-title">Director:</h5>
-                    <p class="card-text mb-3">{{ film.director }}</p>
+                    <p class="card-text mb-3">
+                        <a href="#" (click)="openFavouritesDialog(film.director); $event.preventDefault()">{{ film.director }}</a>
+                    </p>
                     <h5 class="card-title">Actors:</h5>
-                    <p class="card-text pr-3">{{ film.actors }}</p>
+                    <span *ngFor="let actor of this.actors; last as isLast" (click)="openFavouritesDialog(actor); $event.preventDefault()">
+                        <a href="#">{{ actor }}</a>
+                        <span *ngIf="!isLast">, </span> 
+                    </span>
                 </div>
             </div>
             <h5 class="card-title">Description:</h5>
@@ -96,3 +106,5 @@
         
     </div>
 </div>
+
+<app-create-favourite-modal></app-create-favourite-modal>

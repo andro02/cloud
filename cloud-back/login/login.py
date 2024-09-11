@@ -29,7 +29,7 @@ def login(event, context):
             }
         )
 
-        return create_response(200, response['AuthenticationResult'])
+        return create_response(200, response['AuthenticationResult'], 'Client')
     
     except cognito.exceptions.UserNotFoundException:
 
@@ -44,7 +44,7 @@ def login(event, context):
                 }
             )
 
-            return create_response(200, response['AuthenticationResult'])
+            return create_response(200, response['AuthenticationResult'], 'Admin')
     
         except cognito.exceptions.UserNotFoundException:
 
