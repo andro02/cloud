@@ -38,9 +38,7 @@ export class FilmUpdateComponent {
       "GET",
       "/film",
       null,
-      {
-        'Authorization': 'Bearer ' + this.axiosService.getAuthToken()
-      }
+      "application/json"
     ).then(
       response => {
         // console.log(response.data.data);
