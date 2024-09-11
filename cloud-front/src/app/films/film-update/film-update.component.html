@@ -1,0 +1,52 @@
+<div class="container mt-4">
+    <h2 class="my-5 text-center">Upload Movie</h2>
+    <form class="needs-validation" [formGroup]="filmForm" novalidate>
+        <div class="form-group">
+            <label for="movieFile">Update movie:</label>
+            <div class="custom-file">
+                <input required type="file" class="custom-file-input" id="movieFile" name="movieFile" formControlName="file" >
+                <label for="movieFile" class="custom-file-label">Choose file</label>
+                <div class="invalid-feedback">This input is not valid!</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="movieName">Name:</label>
+            <input required type="text" class="form-control" id="movieName" name="movieName" formControlName="name" placeholder="Enter movie name">
+            <div class="invalid-feedback">This input is not valid!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea required class="form-control" id="description" name="description" rows="3" formControlName="description" placeholder="Enter movie description"></textarea>
+            <div class="invalid-feedback">This input is not valid!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="director">Director:</label>
+            <input required type="text" class="form-control" id="director" name="director" formControlName="director" placeholder="Enter director's name">
+            <div class="invalid-feedback">This input is not valid!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Genre:</label>
+            <input required type="text" class="form-control" id="genre" name="genre" formControlName="genre" placeholder="Enter movie genre">
+            <div class="invalid-feedback">This input is not valid!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="actors">Actors:</label>
+            <input required type="text" class="form-control" id="actors" name="actors" formControlName="actors" placeholder="Enter actors (comma-separated)">
+            <div class="invalid-feedback">This input is not valid!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="releaseDate">Release Date:</label>
+            <input required type="date" class="form-control" id="releaseDate" formControlName="releaseDate" name="releaseDate">
+            <div class="invalid-feedback">This input is not valid!</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Cancel</button>
+    </form>
+</div>

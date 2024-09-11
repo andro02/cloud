@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { CreateFavouriteModalComponent } from '../../favourites/create-favourite-modal/create-favourite-modal.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-film-view',
   standalone: true,
-  imports: [CommonModule, CreateFavouriteModalComponent],
+  imports: [CommonModule, CreateFavouriteModalComponent, RouterLink],
   templateUrl: './film-view.component.html',
   styleUrl: './film-view.component.css'
 })
