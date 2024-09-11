@@ -8,8 +8,8 @@ import { FavouritesComponent } from './favourites/favourites/favourites.componen
 
 export const routes: Routes = [
     {component: FilmsComponent, path: "" },
-    { component: FilmCreateComponent, path: "films/create"},
-    { component: FilmCreateComponent, path: "films/update/:id"},
+    {component: FilmCreateComponent, path: "films/create"},
+    {component: FilmUpdateComponent, path: "films/:filename/update"},
     {component: FavouritesComponent, path: "favourites/favourites"},
     {component: FilmsComponent, path: "films" },
     {component: LoginComponent, path:"auth/login"},

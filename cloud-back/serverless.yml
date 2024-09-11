@@ -142,6 +142,16 @@ functions:
       - httpApi:
           path: /film
           method: get
+  getFilm:
+    handler: getFilm/get_film.get
+    package:
+      include: 'getFilm/**'
+    events:
+      - httpApi:
+          path: /film/filename
+          method: get
+          authorizer:
+            name: adminAuthorizer
         
 resources:
   Resources:

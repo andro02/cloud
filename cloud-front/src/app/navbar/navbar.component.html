@@ -24,9 +24,9 @@
             </button>
             <div class="dropdown-menu notificationsMenu">
               <div *ngFor="let notification of notifications; index as i;">
-                <div *ngIf="notification.type == 'ReservationCreated'" class="dropdown-item" data-toggle="modal" [attr.data-target]="'#notification'+i">
-                  <p class="notificationTime">{{notification.createdAt}}</p>
-                  <p>New reservation from {{notification.otherUserEmail}}</p>
+                <div class="dropdown-item my-2">
+                  <p class="notificationTime mb-0">{{notification.createdAt}}</p>
+                  <p class="mb-0">New <b>{{ notification.items }}</b> movie named <b>{{ notification.name }}</b>!</p>
                 </div>
               </div>
             </div>
