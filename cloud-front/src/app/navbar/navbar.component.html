@@ -14,6 +14,21 @@
     </ul>
     <span>
       <ul class="navbar-nav">
+        <li *ngIf="axiosService.getRole() == 'Client' && notifications.length != 0" class="nav-item active"> 
+          <div class="dropleft mt-1 mr-2">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+              Notifications
+            </button>
+            <div class="dropdown-menu notificationsMenu">
+              <div *ngFor="let notification of notifications; index as i;">
+                <div *ngIf="notification.type == 'ReservationCreated'" class="dropdown-item" data-toggle="modal" [attr.data-target]="'#notification'+i">
+                  <p class="notificationTime">{{notification.createdAt}}</p>
+                  <p>New reservation from {{notification.otherUserEmail}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
         <li *ngIf='axiosService.getEmail() != ""'  class="nav-item active">
           <a class="nav-link">{{axiosService.getEmail()}}</a>
         </li>

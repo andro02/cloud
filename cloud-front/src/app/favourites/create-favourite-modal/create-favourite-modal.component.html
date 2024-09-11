@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createFavouriteModalLabel">Add favourite</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCancel()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -11,7 +11,7 @@
                 Are you sure you want to subscribe to future <b>{{ name }}</b> movies?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close" (click)="onCancel()">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>
                 <button type="button" class="btn btn-primary" (click)="onConfirm()">Confirm</button>
             </div>
         </div>

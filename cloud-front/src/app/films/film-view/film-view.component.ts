@@ -23,10 +23,10 @@ export class FilmViewComponent {
 
   ngOnInit(): void {
     if (this.film.actors) {
-      this.actors = this.film.actors.split(",");
+      this.actors = this.film.actors.split(",").map((item: string) => item.trim());
     }
     if (this.film.actors) {
-      this.genres = this.film.genre.split(",");
+      this.genres = this.film.genre.split(",").map((item: string) => item.trim());
     }
   }
 

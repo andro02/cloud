@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-create-favourite-modal',
@@ -10,24 +11,35 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 export class CreateFavouriteModalComponent {
   @ViewChild('createFavouriteModal', { static: true }) dialogElement!: ElementRef;
   @Input() name: String = '';
+
+  private modal: any;
   
-  constructor() { }
+  constructor(private axiosService: AxiosService) { }
 
   openModal() {
-    const modal = new bootstrap.Modal(this.dialogElement.nativeElement);
-    modal.show();
+    this.modal = new bootstrap.Modal(this.dialogElement.nativeElement);
+    this.modal.show();
   }
 
   onConfirm(): void {
-    this.closeModal();
-  }
-
-  onCancel(): void {
-    this.closeModal();
+    const favouriteInformation = {
+      'userEmail': this.axiosService.getEmail(),
+      'name': this.name
+    }
+    
+    this.axiosService.request(
+      "POST",
+      "/favourite",
+      favouriteInformation,
+      "application/json"
+    ).then(
+      response => {
+        this.closeModal();
+      }
+    );
   }
 
   closeModal(): void {
-    const modal = new bootstrap.Modal(this.dialogElement.nativeElement);
-    modal.hide();
+    this.modal.hide();
   }
 }

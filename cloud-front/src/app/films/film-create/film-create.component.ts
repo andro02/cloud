@@ -77,7 +77,8 @@ export class FilmCreateComponent {
         'director': uploadFileData.director,
         'genre': uploadFileData.genre,
         'actors': uploadFileData.actors,
-        'releaseDate': uploadFileData.releaseDate
+        'releaseDate': uploadFileData.releaseDate,
+        'userEmail': this.axiosService.getEmail()
       }
 
       this.axiosService.request(
