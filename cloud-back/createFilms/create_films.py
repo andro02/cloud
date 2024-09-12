@@ -118,3 +118,5 @@ def create(event, context):
     message = {"Subject": {"Data": subject}, "Body": {"Html": {"Data": body}}}
     client.send_email(Source = "andrija.slovic02@gmail.com", Destination = {"ToAddresses": ["andrija.slovic1@gmail.com"]}, Message = message)
     return create_response(200, body)
+
+

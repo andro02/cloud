@@ -13,8 +13,47 @@
           
                 <!-- Update Button -->
                 <button class="btn btn-primary" [routerLink]="['/films/', film.filename, 'update']">
-                  Update
+                  Edit
                 </button>
+                <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#myModal">
+                    Update
+                  </button>
+                
+                  <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                      
+                        <!-- Modal Header -->
+                        <div class="modal-header ">
+                          <h4 class="modal-title text-center">Rate</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="modal-body d-flex justify-content-center ">
+                            <!--  -->
+                            <fieldset class="rating">
+                                
+                                <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="5" ></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="4"></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="3"></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="2"></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="1" ></label>
+                                </fieldset>
+                            <!--  -->
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-success" (click)="rating()">Save</button>
+                          </div>
+                        
+                        
+                        
+                      </div>
+                    </div>
+                  </div>
+
+
               </div>
             </div>
           </div>

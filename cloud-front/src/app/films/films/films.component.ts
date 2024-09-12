@@ -59,26 +59,24 @@ export class FilmsComponent implements OnInit{
     this.filteredFilms = this.films;
     if(this.searchQueryFilmName != "")
       this.filteredFilms = this.filteredFilms.filter((film: any) =>
-        film.filename?.toLowerCase().includes(this.searchQueryFilmName.toLowerCase())
+        film.name?.toLowerCase().includes(this.searchQueryFilmName.toLowerCase())
       );
-    else if(this.searchQueryDirector != "")
+    if(this.searchQueryDirector != "")
       this.filteredFilms = this.filteredFilms.filter((film: any) =>
         film.director?.toLowerCase().includes(this.searchQueryDirector.toLowerCase())
       );
-    else if(this.searchQueryDescription != "")
+    if(this.searchQueryDescription != "")
       this.filteredFilms = this.filteredFilms.filter((film: any) =>
         film.description?.toLowerCase().includes(this.searchQueryDescription.toLowerCase())
       );
-    else if(this.searchQueryActor!= "")
+    if(this.searchQueryActor!= "")
       this.filteredFilms = this.filteredFilms.filter((film: any) =>
         film.actors?.toLowerCase().includes(this.searchQueryActor.toLowerCase())
       );
-    else if(this.selectedGenre!= "")
+    if(this.selectedGenre!= "")
       this.filteredFilms = this.filteredFilms.filter((film: any) =>
         film.genre?.toLowerCase().includes(this.selectedGenre.toLowerCase())
       );
-    else
-      this.filteredFilms = this.films;
   }
 
   download(filename: any): void {

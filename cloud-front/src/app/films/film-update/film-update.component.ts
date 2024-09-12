@@ -2,25 +2,25 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import {  FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AxiosService } from '../../axios.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-film-update',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './film-update.component.html',
   styleUrl: './film-update.component.css'
 })
 export class FilmUpdateComponent {
   // @Input() film: any = null;
   route: ActivatedRoute = inject(ActivatedRoute);
-  filmname = '';
+  filename = '';
   film: any;
   filmForm: FormGroup;
   
   constructor(public datePipe: DatePipe, private fb: FormBuilder, private axiosService: AxiosService){
     
-    this.filmname = String(this.route.snapshot.params['filename']);
+    this.filename = String(this.route.snapshot.params['filename']);
 
     this.filmForm = this.fb.group({
       file: [null, Validators.compose([Validators.required])],
@@ -37,7 +37,7 @@ export class FilmUpdateComponent {
   ngOnInit(): void {
     this.axiosService.request(
       "GET",
-      "/film/filename?filename=" + this.filmname,
+      "/film/filename?filename=" + this.filename,
       null,
       "application/json"
     ).then(
@@ -56,16 +56,65 @@ export class FilmUpdateComponent {
         });
       }
     );
-
-
-    // console.log(this.film.filename);
-
-
-    // Initialize form with existing film data if needed
     
   }
 
+  onSubmit(): void {
+    var form = document.getElementsByClassName('needs-validation')[0] as HTMLFormElement;
 
+    if (form.checkValidity() !== false) {
+      const uploadFileData = { ...this.filmForm.value };
+      const fileToUpload = this.filmForm.controls["fileToUpload"].value;
+      const filename = fileToUpload['name'];
+
+      const query = "?filename=" + filename;
+
+      // this.axiosService.request(
+      //   "PUT",
+      //   "/uploadFilm" + query,
+      //   fileToUpload,
+      //   "multipart/form-data"
+      // );
+
+      const fileInformation = {
+        'filename': filename,
+        'type': fileToUpload['type'],
+        'size': fileToUpload['size'],
+        'lastModifiedDate': fileToUpload['lastModifiedDate'],
+        'creationDate': fileToUpload['lastModifiedDate'],
+        'name': uploadFileData.name,
+        'description': uploadFileData.description,
+        'director': uploadFileData.director,
+        'genre': uploadFileData.genre,
+        'actors': uploadFileData.actors,
+        'releaseDate': uploadFileData.releaseDate,
+        'userEmail': this.axiosService.getEmail()
+      }
+
+      // this.axiosService.request(
+      //   "PUT",
+      //   "/film",
+      //   fileInformation,
+      //   "application/json"
+      // );
+    }
+  }
   
 
+  deleteFilm(): void {
+    
+      // this.axiosService.request(
+      //   "PUT",
+      //   "/uploadFilm" + query,
+      //   fileToUpload,
+      //   "multipart/form-data"
+      // );  
+
+            // this.axiosService.request(
+      //   "PUT",
+      //   "/film",
+      //   fileInformation,
+      //   "application/json"
+      // );
+  }
 }
