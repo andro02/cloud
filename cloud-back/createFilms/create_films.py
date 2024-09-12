@@ -108,7 +108,15 @@ def create(event, context):
         }
     )
 
+    #dodaj try u except nista i promeni podatke koji se salju
     body = {
         'message': 'Successfully created film'
     }
+    client = boto3.client("ses")
+    subject = "New Movie Uploaded"
+    body = "test"
+    message = {"Subject": {"Data": subject}, "Body": {"Html": {"Data": body}}}
+    client.send_email(Source = "andrija.slovic02@gmail.com", Destination = {"ToAddresses": ["andrija.slovic1@gmail.com"]}, Message = message)
     return create_response(200, body)
+
+

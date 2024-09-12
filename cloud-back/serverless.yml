@@ -66,6 +66,10 @@ provider:
             - "Fn::GetAtt": [favourites, Arn]
             - "Fn::GetAtt": [counterTable, Arn]
             - "Fn::GetAtt": [notifications, Arn]
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+          Resource: "*"
 
 functions:
   login:
@@ -104,6 +108,16 @@ functions:
           method: get
           authorizer:
             name: clientAuthorizer
+  deleteFile:
+    handler: deleteFile/delete_file.deleteFile
+    package:
+      include: 'deleteFile/**'
+    events:
+      - httpApi:
+          path: /deleteFile
+          method: delete
+          authorizer:
+            name: adminAuthorizer
   createFilm:
     handler: createFilms/create_films.create
     package:
@@ -112,6 +126,16 @@ functions:
       - httpApi:
           path: /film
           method: post
+          authorizer:
+            name: adminAuthorizer
+  deleteFilm:
+    handler: deleteFilm/delete_film.delete
+    package:
+      include: 'deleteFilm/**' 
+    events:
+      - httpApi:
+          path: /film/filename
+          method: delete
           authorizer:
             name: adminAuthorizer
   createFavourites:

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AxiosService } from '../../axios.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-film-create',
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class FilmCreateComponent {
   uploadFileForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private axiosService: AxiosService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private axiosService: AxiosService) {
 
     this.uploadFileForm = this.formBuilder.group({
       file: [null, Validators.compose([Validators.required])],
@@ -84,6 +85,19 @@ export class FilmCreateComponent {
         "/uploadFilm" + query,
         fileToUpload,
         "multipart/form-data"
+      ).then(
+        response => {
+          this.axiosService.request(
+          "POST",
+          "/film",
+          fileInformation,
+          "application/json"
+          ).then(
+            response => {
+              this.router.navigate(['']);
+            }
+          );
+        }
       );
 
       const fileInformation = {
@@ -101,12 +115,7 @@ export class FilmCreateComponent {
         'userEmail': this.axiosService.getEmail()
       }
 
-      this.axiosService.request(
-        "POST",
-        "/film",
-        fileInformation,
-        "application/json"
-      );
+      
 
     }
     

@@ -6,18 +6,21 @@
             </div>
             <div class="col-sm-6 d-flex justify-content-end">
               <div class="d-flex align-items-center">
-                <!-- Download Button -->
-                <button (click)="download.emit({filename: film.filename})" class="btn btn-info mr-2">
-                  <i class="fa fa-download" aria-hidden="true"></i>
-                </button>
           
                 <!-- Update Button -->
-                <button class="btn btn-primary" [routerLink]="['/films/', film.filename, 'update']">
-                  Update
+                <button *ngIf="auth.getRole() == 'Admin'" class="btn btn-warning mr-2" [routerLink]="['/films/', film.filename, 'update']">
+                  Edit
                 </button>
-                <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#myModal">
-                    Update
-                  </button>
+                
+                <!-- Rate Button -->
+                <button *ngIf="auth.getRole() == 'Client'" class="btn btn-warning mr-2" data-toggle="modal" data-target="#myModal">
+                    Rate
+                </button>
+
+                <!-- Download Button -->
+                <button (click)="download.emit({filename: film.filename})" class="btn btn-info mr-2">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                </button>
                 
                   <div class="modal" id="myModal">
                     <div class="modal-dialog">

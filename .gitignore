@@ -15,7 +15,6 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-films/
 output.mp4
 __pycache__
 decode.py
@@ -25,3 +24,5 @@ cloud-back/authorizer/package/
 
 # Serverless directories
 .serverless
+
+films/

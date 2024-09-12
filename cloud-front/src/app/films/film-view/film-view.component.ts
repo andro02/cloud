@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { CommonModule, DatePipe } from '@angular/common';
 import { CreateFavouriteModalComponent } from '../../favourites/create-favourite-modal/create-favourite-modal.component';
 import { RouterLink } from '@angular/router';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-film-view',
@@ -16,10 +17,12 @@ export class FilmViewComponent {
   @Output() download = new EventEmitter();  
   @ViewChild(CreateFavouriteModalComponent) createFavouriteModal!: CreateFavouriteModalComponent;
 
+  auth: AxiosService;
   actors: String[] | null = null;
   genres: String[] | null = null;
 
-  constructor(public datePipe: DatePipe) {
+  constructor(public datePipe: DatePipe, private axiosService: AxiosService) {
+    this.auth=axiosService
   };
 
   ngOnInit(): void {
