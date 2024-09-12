@@ -159,7 +159,7 @@ export class FilmUpdateComponent {
         response => {
           this.axiosService.request(
           "PUT",
-          "/updateFilm",
+          "/updateFilm" + query,
           fileInformation,
           "application/json"
           ).then(
