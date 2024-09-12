@@ -146,9 +146,6 @@ export class FilmUpdateComponent {
         'releaseDate': uploadFileData.releaseDate,
         'userEmail': this.axiosService.getEmail()
       }
-      console.log("Fim dddddddddddd")
-      console.log(fileInformation)
-      console.log(fileToUpload)
 
       this.axiosService.request(
         "PUT",

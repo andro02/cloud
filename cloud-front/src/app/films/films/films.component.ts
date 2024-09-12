@@ -55,7 +55,6 @@ export class FilmsComponent implements OnInit{
   }
 
   ngOnChanges(): void {
-    // console.log(this.searchQuery);
     this.filteredFilms = this.films;
     if(this.searchQueryFilmName != "")
       this.filteredFilms = this.filteredFilms.filter((film: any) =>

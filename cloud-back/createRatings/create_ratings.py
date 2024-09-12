@@ -39,11 +39,12 @@ def create(event, context):
         Item={
             'id': new_id,
             'userEmail': body['userEmail'],
-            'filename': body['filename']
+            'filename': body['filename'],
+            'rating': body['rating']
         }
     )
 
     body = {
-        'message': 'Successfully created film'
+        'message': 'Successfully created rating'
     }
     return create_response(200, body)

@@ -20,18 +20,34 @@ export class FilmViewComponent {
   auth: AxiosService;
   actors: String[] | null = null;
   genres: String[] | null = null;
+  ratings: any[] | null = null;
 
   constructor(public datePipe: DatePipe, private axiosService: AxiosService) {
     this.auth=axiosService
   };
 
   ngOnInit(): void {
+
     if (this.film.actors) {
       this.actors = this.film.actors.split(",").map((item: string) => item.trim());
     }
+
     if (this.film.actors) {
       this.genres = this.film.genre.split(",").map((item: string) => item.trim());
     }
+
+    this.axiosService.request(
+      "GET",
+      "/ratings?filename=" + this.film.filename,
+      null,
+      "application/json"
+    ).then(
+      response => {
+        this.ratings = response.data['data'];
+        console.log(this.ratings)
+      }
+    );
+
   }
 
   openFavouritesDialog(name: String): void {
@@ -43,22 +59,22 @@ export class FilmViewComponent {
   rating(): void{
     const selectedRating = (document.querySelector('input[name="rating"]:checked') as HTMLInputElement)?.value;
     if(selectedRating!=null) {
-      console.log('Selected Rating:', selectedRating);
-      // const favouriteInformation = {
-      //   'userEmail': this.axiosService.getEmail(),
-      //   'name': this.name
-      // }
+      const ratingInformation = {
+        'userEmail': this.axiosService.getEmail(),
+        'rating': selectedRating,
+        'filename': this.film.filename
+      }
       
-      // this.axiosService.request(
-      //   "POST",
-      //   "/favourite",
-      //   favouriteInformation,
-      //   "application/json"
-      // ).then(
-      //   response => {
-      //     this.closeModal();
-      //   }
-      // );
+      this.axiosService.request(
+        "POST",
+        "/ratings",
+        ratingInformation,
+        "application/json"
+      ).then(
+        response => {
+          // this.closeModal();
+        }
+      );
     }
   }
 

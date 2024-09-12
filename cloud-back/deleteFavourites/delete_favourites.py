@@ -13,7 +13,8 @@ def delete(event, context):
     table = dynamodb.Table(table_name)
     
     query_params = event.get('queryStringParameters', {})
-    id = query_params.get('id')
+    id = int(query_params.get('id'))
+    print(id)
 
     response = table.delete_item(
         Key={
