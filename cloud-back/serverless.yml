@@ -116,8 +116,6 @@ functions:
       - httpApi:
           path: /downloadFilm
           method: get
-          authorizer:
-            name: clientAuthorizer
   deleteFile:
     handler: deleteFile/delete_file.deleteFile
     package:
