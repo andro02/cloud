@@ -37,5 +37,10 @@ export class FilmViewComponent {
       this.createFavouriteModal.openModal();
     }
   }
+  rating(): void{
+    const selectedRating = (document.querySelector('input[name="rating"]:checked') as HTMLInputElement)?.value;
+    if(selectedRating!=null)
+     console.log('Selected Rating:', selectedRating);
+  }
 
 }
