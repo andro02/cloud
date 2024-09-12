@@ -1,8 +1,8 @@
 <div class="container mt-4">
-    <h2 class="my-5 text-center">Upload Movie</h2>
+    <h2 class="my-5 text-center">Update Movie</h2>
     <form class="needs-validation" [formGroup]="filmForm" novalidate>
         <div class="form-group">
-            <label for="movieFile">Update movie:</label>
+            <label for="movieFile">Edit movie:</label>
             <div class="custom-file">
                 <input required type="file" class="custom-file-input" id="movieFile" name="movieFile" formControlName="file" >
                 <label for="movieFile" class="custom-file-label">Choose file</label>
@@ -46,7 +46,8 @@
             <div class="invalid-feedback">This input is not valid!</div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="submit" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-primary mt-2 w-100">Submit</button>
+        <button type="button" (click)="deleteFilm()" class="btn btn-danger mb-5 mt-3 w-100">Delete</button>
+                            
     </form>
 </div>
