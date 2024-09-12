@@ -146,27 +146,29 @@ export class FilmUpdateComponent {
         'releaseDate': uploadFileData.releaseDate,
         'userEmail': this.axiosService.getEmail()
       }
+      console.log("Fim dddddddddddd")
+      console.log(fileInformation)
+      console.log(fileToUpload)
 
-      //TODO PROMENI URLS
-      // this.axiosService.request(
-      //   "POST",
-      //   "/uploadFilm" + query,
-      //   fileToUpload,
-      //   "multipart/form-data"
-      // ).then(
-      //   response => {
-      //     this.axiosService.request(
-      //     "POST",
-      //     "/film",
-      //     fileInformation,
-      //     "application/json"
-      //     ).then(
-      //       response => {
-      //         this.router.navigate(['films']);
-      //       }
-      //     );
-      //   }
-      // );
+      this.axiosService.request(
+        "PUT",
+        "/updateFile" + query,
+        fileToUpload,
+        "multipart/form-data"
+      ).then(
+        response => {
+          this.axiosService.request(
+          "PUT",
+          "/updateFilm",
+          fileInformation,
+          "application/json"
+          ).then(
+            response => {
+              this.router.navigate(['films']);
+            }
+          );
+        }
+      );
     }
     
     form.classList.add('was-validated');
@@ -193,6 +195,7 @@ export class FilmUpdateComponent {
             }
           );
         }
-      );  
+      );
+      
   }
 }
