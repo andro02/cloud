@@ -15,7 +15,7 @@
                     Rate
                 </button>
 
-                <button (click)="download.emit({filename: film.filename})" class="btn btn-info mr-2">
+                <button *ngIf="auth.getRole() == 'Client'" (click)="download.emit({filename: film.filename})" class="btn btn-info">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 </button>
                 

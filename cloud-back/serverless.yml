@@ -98,6 +98,16 @@ functions:
           method: post
           authorizer:
             name: adminAuthorizer
+  updateFile:
+    handler: updateFile/update_file.updateFile
+    package:
+      include: 'updateFile/**'
+    events:
+      - httpApi:
+          path: /updateFile/filename
+          method: put
+          authorizer:
+            name: adminAuthorizer
   downloadFile:
     handler: downloadFile/download_file.download
     package:
@@ -126,6 +136,16 @@ functions:
       - httpApi:
           path: /film
           method: post
+          authorizer:
+            name: adminAuthorizer
+  updateFilm:
+    handler: updateFilm/update_films.update
+    package:
+      include: 'updateFilm/**' 
+    events:
+      - httpApi:
+          path: /film/filename
+          method: put
           authorizer:
             name: adminAuthorizer
   deleteFilm:
@@ -176,6 +196,26 @@ functions:
           method: get
           authorizer:
             name: adminAuthorizer
+  getFavourites:
+    handler: getFavourites/get_favourites.get_all
+    package:
+      include: 'getFavourites/**'
+    events:
+      - httpApi:
+          path: /favourites
+          method: get
+          authorizer:
+            name: clientAuthorizer
+  deleteFavourites:
+    handler: deleteFavourites/delete_favourites.delete
+    package:
+      include: 'deleteFavourites/**'
+    events:
+      - httpApi:
+          path: /favourites/id
+          method: get
+          authorizer:
+            name: clientAuthorizer
         
 resources:
   Resources:
