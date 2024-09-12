@@ -210,8 +210,8 @@ functions:
       include: 'deleteFavourites/**'
     events:
       - httpApi:
-          path: /favourites/id
-          method: get
+          path: /deleteFavourites
+          method: delete
           authorizer:
             name: clientAuthorizer
         

@@ -44,6 +44,6 @@ def create(event, context):
     )
 
     body = {
-        'message': 'Successfully created film'
+        'message': 'Successfully added to favourites'
     }
     return create_response(200, body)

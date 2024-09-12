@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FavouritesCardComponent } from '../favourites-card/favourites-card.component';
 import { CommonModule } from '@angular/common';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-favourites',
@@ -9,10 +10,25 @@ import { CommonModule } from '@angular/common';
   templateUrl: './favourites.component.html',
   styleUrl: './favourites.component.css'
 })
-export class FavouritesComponent {
+export class FavouritesComponent implements OnInit {
 
   favourites: any[] = [];
 
-  constructor(){}
+  constructor(private axiosService: AxiosService) {}
+
+  ngOnInit(): void {
+    
+    this.axiosService.request(
+      "GET",
+      "/favourites?userEmail=" + this.axiosService.getEmail(),
+      null,
+      "application/json"
+    ).then(
+      response => {
+        this.favourites = response.data.data;
+      }
+    );
+
+  }
 
 }

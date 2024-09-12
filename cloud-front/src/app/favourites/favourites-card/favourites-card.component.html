@@ -1,9 +1,8 @@
-<div class="card mt-5" style="width: 18rem;">
+<div class="card mt-5" style="width: 22rem;">
     <div class="card-body">
-      <h5 class="card-title">Subscriber Information</h5>
+      <h5 class="card-title">Subscribed to: {{favourite.name}}</h5>
       <form>
-        
-    <button class="btn btn-primary " >Unsubscribe</button>
+        <button (click)="unsubscribe()" class="btn btn-danger">Unsubscribe</button>
       </form>
     </div>
   </div>
