@@ -60,26 +60,6 @@ export class FilmCreateComponent {
 
       const query = "?filename=" + filename;
 
-      this.axiosService.request(
-        "POST",
-        "/uploadFilm" + query,
-        fileToUpload,
-        "multipart/form-data"
-      ).then(
-        response => {
-          this.axiosService.request(
-          "POST",
-          "/film",
-          fileInformation,
-          "application/json"
-          ).then(
-            response => {
-              this.router.navigate(['']);
-            }
-          );
-        }
-      );
-
       const fileInformation = {
         'filename': filename,
         'type': fileToUpload['type'],
@@ -95,8 +75,25 @@ export class FilmCreateComponent {
         'userEmail': this.axiosService.getEmail()
       }
 
-      
-
+      this.axiosService.request(
+        "POST",
+        "/uploadFilm" + query,
+        fileToUpload,
+        "multipart/form-data"
+      ).then(
+        response => {
+          this.axiosService.request(
+          "POST",
+          "/film",
+          fileInformation,
+          "application/json"
+          ).then(
+            response => {
+              this.router.navigate(['films']);
+            }
+          );
+        }
+      );
     }
     
     form.classList.add('was-validated');

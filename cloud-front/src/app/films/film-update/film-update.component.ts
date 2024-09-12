@@ -117,7 +117,7 @@ export class FilmUpdateComponent {
           "application/json"
           ).then(
             response => {
-              this.router.navigate(['']);
+              this.router.navigate(['films']);
             }
           );
         }

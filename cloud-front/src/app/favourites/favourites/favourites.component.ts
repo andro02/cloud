@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class FavouritesComponent {
 
-  favourites: any = ['',''];
+  favourites: any[] = [];
 
   constructor(){}
 

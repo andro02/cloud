@@ -7,34 +7,28 @@
             <div class="col-sm-6 d-flex justify-content-end">
               <div class="d-flex align-items-center">
           
-                <!-- Update Button -->
                 <button *ngIf="auth.getRole() == 'Admin'" class="btn btn-warning mr-2" [routerLink]="['/films/', film.filename, 'update']">
                   Edit
                 </button>
                 
-                <!-- Rate Button -->
                 <button *ngIf="auth.getRole() == 'Client'" class="btn btn-warning mr-2" data-toggle="modal" data-target="#myModal">
                     Rate
                 </button>
 
-                <!-- Download Button -->
                 <button (click)="download.emit({filename: film.filename})" class="btn btn-info mr-2">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 </button>
                 
-                  <div class="modal" id="myModal">
-                    <div class="modal-dialog">
+                  <div class="modal fade" id="myModal">
+                    <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
-                      
-                        <!-- Modal Header -->
+                    
                         <div class="modal-header ">
                           <h4 class="modal-title text-center">Rate</h4>
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         
-                        <!-- Modal body -->
                         <div class="modal-body d-flex justify-content-center ">
-                            <!--  -->
                             <fieldset class="rating">
                                 
                                 <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="5" ></label>
@@ -43,7 +37,6 @@
                                 <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="2"></label>
                                 <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="1" ></label>
                                 </fieldset>
-                            <!--  -->
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
