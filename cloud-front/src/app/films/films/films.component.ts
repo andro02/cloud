@@ -79,6 +79,20 @@ export class FilmsComponent implements OnInit{
       );
   }
 
+  onSubmit(): void {
+    this.axiosService.request(
+      "GET",
+      "/film/filtered?name="+this.searchQueryFilmName+"&director="+this.searchQueryDirector+"&description="+this.searchQueryDescription+"&actor="+this.searchQueryActor+"&genre="+this.selectedGenre,
+      null,
+      "application/json"
+    ).then(
+      response => {
+        this.films = response.data.data;
+        this.filteredFilms = this.films;
+      }
+    );
+  }
+
   download(filename: any): void {
 
     const query = "?filename=" + filename['filename'];
