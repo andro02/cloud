@@ -184,6 +184,14 @@ functions:
       - httpApi:
           path: /film
           method: get
+  getFilteredFilms:
+    handler: getFilteredFilms/get_filtered_films.get
+    package:
+      include: 'getFilteredFilms/**'
+    events:
+      - httpApi:
+          path: /film/filtered
+          method: get
   getFilm:
     handler: getFilm/get_film.get
     package:
