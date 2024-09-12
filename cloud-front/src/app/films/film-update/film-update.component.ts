@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import {  FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AxiosService } from '../../axios.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-film-update',
@@ -18,7 +18,7 @@ export class FilmUpdateComponent {
   film: any;
   filmForm: FormGroup;
   
-  constructor(public datePipe: DatePipe, private fb: FormBuilder, private axiosService: AxiosService){
+  constructor(public datePipe: DatePipe, private fb: FormBuilder, private axiosService: AxiosService, private router: Router){
     
     this.filename = String(this.route.snapshot.params['filename']);
 
@@ -103,18 +103,24 @@ export class FilmUpdateComponent {
 
   deleteFilm(): void {
     
-      // this.axiosService.request(
-      //   "PUT",
-      //   "/uploadFilm" + query,
-      //   fileToUpload,
-      //   "multipart/form-data"
-      // );  
-
-            // this.axiosService.request(
-      //   "PUT",
-      //   "/film",
-      //   fileInformation,
-      //   "application/json"
-      // );
+      this.axiosService.request(
+        "DELETE",
+        "/deleteFile?filename=" + this.filename,
+        null,
+        "application/json"
+      ).then(
+        response => {
+          this.axiosService.request(
+          "DELETE",
+          "/film/filename?filename=" + this.filename,
+          null,
+          "application/json"
+          ).then(
+            response => {
+              this.router.navigate(['']);
+            }
+          );
+        }
+      );  
   }
 }

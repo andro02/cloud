@@ -24,3 +24,5 @@ cloud-back/authorizer/package/
 
 # Serverless directories
 .serverless
+
+films/

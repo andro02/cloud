@@ -8,7 +8,7 @@ table_name = 'films-table'
 counter_table_name = 'counter-table'
 
 
-def create(event, context):
+def delete(event, context):
 
     body = json.loads(event['body'])
     table = dynamodb.Table(table_name)
@@ -17,8 +17,8 @@ def create(event, context):
 
     response = table.delete_item(
         Key={
-                'filename': filename
-            }
+            'filename': filename
+        }
     )
     
     if response.get('ResponseMetadata', {}).get('HTTPStatusCode') == 200:
