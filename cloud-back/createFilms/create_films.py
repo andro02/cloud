@@ -107,16 +107,19 @@ def create(event, context):
             'createdAt': current_time
         }
     )
-
-    #dodaj try u except nista i promeni podatke koji se salju
+    
+        try:
+            client = boto3.client("ses")
+            subject = "New Movie Uploaded"
+            text = "New " + matched_names[0] + " movie named " + body['name'] +"!"
+            message = {"Subject": {"Data": subject}, "Body": {"Html": {"Data": text}}}
+            client.send_email(Source = "andrija.slovic02@gmail.com", Destination = {"ToAddresses": [user_email]}, Message = message)
+        except:
+            pass
+    
     returnBody = {
         'message': 'Successfully created film'
     }
-    client = boto3.client("ses")
-    subject = "New Movie Uploaded"
-    body = "test"
-    message = {"Subject": {"Data": subject}, "Body": {"Html": {"Data": body}}}
-    client.send_email(Source = "andrija.slovic02@gmail.com", Destination = {"ToAddresses": ["andrija.slovic1@gmail.com"]}, Message = message)
     return create_response(200, returnBody)
 
 

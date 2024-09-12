@@ -33,12 +33,21 @@ export class NavbarComponent {
       "application/json"
     ).then(
       response => {
-        const data = response.data;
+        const data = response.data['data'];
         for (let i = 0; i < data.length; i++) {
           let date = data[i]["createdAt"];
           data[i]["createdAt"] = this.parseDateTime(date);
+          data[i]["createdAt"].setHours(data[i]["createdAt"].getHours() + 2);
+          const day = String(data[i]["createdAt"].getDate()).padStart(2, '0');
+          const month = String(data[i]["createdAt"].getMonth() + 1).padStart(2, '0');
+          const year = data[i]["createdAt"].getFullYear();
+
+          const hours = String(data[i]["createdAt"].getHours()).padStart(2, '0');
+          const minutes = String(data[i]["createdAt"].getMinutes()).padStart(2, '0');
+
+          data[i]["createdAt"] = `${day}.${month}.${year}. ${hours}:${minutes}`;
         }
-        this.notifications = data.data;
+        this.notifications = data;
         this.notifications.sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       }
     );

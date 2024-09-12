@@ -66,6 +66,7 @@ provider:
             - "Fn::GetAtt": [favourites, Arn]
             - "Fn::GetAtt": [counterTable, Arn]
             - "Fn::GetAtt": [notifications, Arn]
+            - "Fn::GetAtt": [ratings, Arn]
         - Effect: Allow
           Action:
             - ses:SendEmail
@@ -137,7 +138,7 @@ functions:
           authorizer:
             name: adminAuthorizer
   updateFilm:
-    handler: updateFilm/update_films.update
+    handler: updateFilm/update_film.update
     package:
       include: 'updateFilm/**' 
     events:
@@ -320,6 +321,20 @@ resources:
       DeletionPolicy: Retain
       Properties:
         TableName: notifications-table
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    ratings:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ratings-table
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: N

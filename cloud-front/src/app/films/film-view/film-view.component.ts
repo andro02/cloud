@@ -42,8 +42,24 @@ export class FilmViewComponent {
   }
   rating(): void{
     const selectedRating = (document.querySelector('input[name="rating"]:checked') as HTMLInputElement)?.value;
-    if(selectedRating!=null)
-     console.log('Selected Rating:', selectedRating);
+    if(selectedRating!=null) {
+      console.log('Selected Rating:', selectedRating);
+      // const favouriteInformation = {
+      //   'userEmail': this.axiosService.getEmail(),
+      //   'name': this.name
+      // }
+      
+      // this.axiosService.request(
+      //   "POST",
+      //   "/favourite",
+      //   favouriteInformation,
+      //   "application/json"
+      // ).then(
+      //   response => {
+      //     this.closeModal();
+      //   }
+      // );
+    }
   }
 
 }
