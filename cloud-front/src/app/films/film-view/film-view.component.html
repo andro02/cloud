@@ -11,7 +11,7 @@
                   Edit
                 </button>
                 
-                <button *ngIf="auth.getRole() == 'Client'" class="btn btn-warning mr-2" data-toggle="modal" data-target="#myModal">
+                <button *ngIf="auth.getRole() == 'Client'" class="btn btn-warning mr-2" data-toggle="modal" [attr.data-target]="'#myModal'+film.filename.split('.')[0]">
                     Rate
                 </button>
 
@@ -19,13 +19,13 @@
                 <i class="fa fa-download" aria-hidden="true"></i>
                 </button>
                 
-                  <div class="modal fade" id="myModal">
+                  <div class="modal fade" [attr.id]="'myModal'+film.filename.split('.')[0]">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                     
                         <div class="modal-header">
                           <h4 class="modal-title text-center">Rate</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" [attr.id]="'myModalClose'+film.filename.split('.')[0]">
                               <span aria-hidden="true" class="text-dark">&times;</span>
                           </button>
                         </div>
@@ -33,19 +33,17 @@
                         <div class="modal-body d-flex justify-content-center ">
                             <fieldset class="rating">
                                 
-                                <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="5" ></label>
-                                <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="4"></label>
-                                <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="3"></label>
-                                <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="2"></label>
-                                <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="1" ></label>
+                                <input type="radio" [attr.id]="'star5'+film.filename.split('.')[0]" name="rating" value="5" /><label class = "full" [attr.for]="'star5'+film.filename.split('.')[0]" title="5" ></label>
+                                <input type="radio" [attr.id]="'star4'+film.filename.split('.')[0]" name="rating" value="4" /><label class="full" [attr.for]="'star4'+film.filename.split('.')[0]" title="4"></label>
+                                <input type="radio" [attr.id]="'star3'+film.filename.split('.')[0]" name="rating" value="3" /><label class = "full" [attr.for]="'star3'+film.filename.split('.')[0]" title="3"></label>
+                                <input type="radio" [attr.id]="'star2'+film.filename.split('.')[0]" name="rating" value="2" /><label class="full" [attr.for]="'star2'+film.filename.split('.')[0]" title="2"></label>
+                                <input type="radio" [attr.id]="'star1'+film.filename.split('.')[0]" name="rating" value="1" /><label class = "full" [attr.for]="'star1'+film.filename.split('.')[0]" title="1" ></label>
                             </fieldset>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-warning ml-auto" (click)="rating()">Save</button>
+                            <button type="button" class="btn btn-warning ml-auto" (click)="rating(film.filename, film.filename.split('.')[0])">Save</button>
                         </div>
-                        
-                        
                         
                       </div>
                     </div>
@@ -149,28 +147,27 @@
             </div>
             <div class="col-sm-6 d-flex justify-content-end">
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-info" data-toggle="collapse" href="#ratingsCollapse" role="button" aria-expanded="false" aria-controls="ratingsCollapse">
+                    <a class="btn btn-info" data-toggle="collapse" [attr.href]="'#ratingsCollapse'+film.filename.split('.')[0]" role="button" aria-expanded="false" aria-controls="ratingsCollapse" (click)="showRatings(film.filename.split('.')[0])">
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
         </div>
         
-        <div class="collapse" id="ratingsCollapse" *ngIf="this.ratings?.length != 0">
+        <div class="collapse" [attr.id]="'ratingsCollapse'+film.filename.split('.')[0]" *ngIf="this.ratings?.length != 0">
             <div class="filedetails pt-4">
-                <div *ngFor="let rating of this.ratings">
-                    <div class="row">
-                        <p class="col-6">{{ rating.userEmail }}</p>
+                <div *ngFor="let rating of this.ratings; index as i; last as isLast">
+                    <div class="row px-4">
+                        <p class="col-6 pb-0 mb-0">{{ rating.userEmail }}</p>
                         <fieldset class="rating col-6">
-                                
-                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="5" ></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="4"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="3"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="2"></label>
-                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="1" ></label>
+                            <input type="radio" [attr.id]="'ratingStar5'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="5" /><label class = "full pb-0 mb-0" [attr.for]="'ratingStar5'+i+film.filename.split('.')[0]" title="5" ></label>
+                            <input type="radio" [attr.id]="'ratingStar4'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="4" /><label class="full pb-0 mb-0" [attr.for]="'ratingStar4'+i+film.filename.split('.')[0]" title="4"></label>
+                            <input type="radio" [attr.id]="'ratingStar3'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="3" /><label class = "full pb-0 mb-0" [attr.for]="'ratingStar3'+i+film.filename.split('.')[0]" title="3"></label>
+                            <input type="radio" [attr.id]="'ratingStar2'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="2" /><label class="full pb-0 mb-0" [attr.for]="'ratingStar2'+i+film.filename.split('.')[0]" title="2"></label>
+                            <input type="radio" [attr.id]="'ratingStar1'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="1" /><label class = "full pb-0 mb-0" [attr.for]="'ratingStar1'+i+film.filename.split('.')[0]" title="1" ></label>
                         </fieldset>
-                        <p class="col-6">{{ rating.rating }}</p>
                     </div>
+                    <hr *ngIf="!isLast" class="mt-1 mx-4">
                 </div>
             </div>
         </div>

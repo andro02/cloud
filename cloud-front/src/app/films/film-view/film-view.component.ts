@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { CreateFavouriteModalComponent } from '../../favourites/create-favourite-modal/create-favourite-modal.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AxiosService } from '../../axios.service';
 
 @Component({
@@ -21,8 +21,10 @@ export class FilmViewComponent {
   actors: String[] | null = null;
   genres: String[] | null = null;
   ratings: any[] | null = null;
+  private modal: any;
+  currentRating: number = 0;
 
-  constructor(public datePipe: DatePipe, private axiosService: AxiosService) {
+  constructor(public datePipe: DatePipe, private axiosService: AxiosService, private router: Router) {
     this.auth=axiosService
   };
 
@@ -44,10 +46,18 @@ export class FilmViewComponent {
     ).then(
       response => {
         this.ratings = response.data['data'];
-        console.log(this.ratings)
       }
     );
 
+  }
+
+  showRatings(name: String): void {
+    for (let i = 0; i < this.ratings!.length; i++) {
+      const rating = this.ratings![i].rating;
+      const inputId = `ratingStar${rating}${i}${name}`;
+      const inputElement = document.getElementById(inputId) as HTMLInputElement;
+      inputElement.click();
+    }
   }
 
   openFavouritesDialog(name: String): void {
@@ -56,13 +66,13 @@ export class FilmViewComponent {
       this.createFavouriteModal.openModal();
     }
   }
-  rating(): void{
+  rating(filename: String, name: String): void{
     const selectedRating = (document.querySelector('input[name="rating"]:checked') as HTMLInputElement)?.value;
     if(selectedRating!=null) {
       const ratingInformation = {
         'userEmail': this.axiosService.getEmail(),
         'rating': selectedRating,
-        'filename': this.film.filename
+        'filename': filename
       }
       
       this.axiosService.request(
@@ -72,7 +82,18 @@ export class FilmViewComponent {
         "application/json"
       ).then(
         response => {
-          // this.closeModal();
+          const closeButton = document.getElementById('myModalClose'+name);
+          closeButton?.click();
+          this.axiosService.request(
+            "GET",
+            "/ratings?filename=" + this.film.filename,
+            null,
+            "application/json"
+          ).then(
+            response => {
+              this.ratings = response.data['data'];
+            }
+          );
         }
       );
     }
