@@ -27,7 +27,8 @@ export class FilmCreateComponent {
     });
 
   }
-
+  fileError: boolean = false;
+  errorMessage: string = '';
 
   onFileChanged(event: Event) {
 
@@ -41,9 +42,28 @@ export class FilmCreateComponent {
     const file = (event.target as HTMLInputElement).files![0];
     this.uploadFileForm.patchValue({ fileToUpload: file });
 
+
+    const validTypes = [
+      'video/mp4', 
+      'video/x-matroska', // For .mkv
+      'video/ogg',
+      'video/webm',
+      'video/quicktime'
+    ]
+    if(!validTypes.includes(file.type)){
+      var fileLabel = document.getElementsByClassName('custom-file-label')[0] as HTMLFormElement;
+      fileLabel.classList.remove("selected");
+      fileLabel.innerHTML = 'Choose file';
+      this.fileError = true;
+      this.errorMessage = 'Invalid file type! Please select a valid video file (.mp4, .mkv, .mov, .webm, .ogg)';
+      return;
+    }
+
     var fileLabel = document.getElementsByClassName('custom-file-label')[0] as HTMLFormElement;
     fileLabel.classList.add("selected");
     fileLabel.innerHTML = file['name'];
+    this.fileError = false;
+    this.errorMessage = '';
 
   }
 
