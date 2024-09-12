@@ -66,6 +66,10 @@ provider:
             - "Fn::GetAtt": [favourites, Arn]
             - "Fn::GetAtt": [counterTable, Arn]
             - "Fn::GetAtt": [notifications, Arn]
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+          Resource: "*"
 
 functions:
   login:
