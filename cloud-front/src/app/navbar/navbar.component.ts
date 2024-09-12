@@ -13,8 +13,10 @@ import { interval } from 'rxjs';
 })
 export class NavbarComponent {
   notifications: any[] = [];
+  auth: AxiosService;
 
   constructor(public axiosService: AxiosService, private router: Router) {
+    this.auth=axiosService
     if (this.axiosService.getRole() == 'Client') {
       this.getNotifications()
       interval(1000000).subscribe(() => {
