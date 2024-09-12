@@ -104,14 +104,14 @@ export class FilmUpdateComponent {
   deleteFilm(): void {
     
       // this.axiosService.request(
-      //   "PUT",
+      //   "DELETE",
       //   "/uploadFilm" + query,
       //   fileToUpload,
       //   "multipart/form-data"
       // );  
 
-            // this.axiosService.request(
-      //   "PUT",
+      // this.axiosService.request(
+      //   "DELETE",
       //   "/film",
       //   fileInformation,
       //   "application/json"

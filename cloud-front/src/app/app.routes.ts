@@ -7,7 +7,7 @@ import { FilmUpdateComponent } from './films/film-update/film-update.component';
 import { FavouritesComponent } from './favourites/favourites/favourites.component';
 
 export const routes: Routes = [
-    {component: FilmsComponent, path: "" },
+    {component: LoginComponent, path: "" },
     {component: FilmCreateComponent, path: "films/create"},
     {component: FilmUpdateComponent, path: "films/:filename/update"},
     {component: FavouritesComponent, path: "favourites/favourites"},
