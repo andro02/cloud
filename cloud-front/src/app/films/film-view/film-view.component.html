@@ -160,11 +160,11 @@
                     <div class="row px-4">
                         <p class="col-6 pb-0 mb-0">{{ rating.userEmail }}</p>
                         <fieldset class="rating col-6">
-                            <input type="radio" [attr.id]="'ratingStar5'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="5" /><label class = "full pb-0 mb-0" [attr.for]="'ratingStar5'+i+film.filename.split('.')[0]" title="5" ></label>
-                            <input type="radio" [attr.id]="'ratingStar4'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="4" /><label class="full pb-0 mb-0" [attr.for]="'ratingStar4'+i+film.filename.split('.')[0]" title="4"></label>
-                            <input type="radio" [attr.id]="'ratingStar3'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="3" /><label class = "full pb-0 mb-0" [attr.for]="'ratingStar3'+i+film.filename.split('.')[0]" title="3"></label>
-                            <input type="radio" [attr.id]="'ratingStar2'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="2" /><label class="full pb-0 mb-0" [attr.for]="'ratingStar2'+i+film.filename.split('.')[0]" title="2"></label>
-                            <input type="radio" [attr.id]="'ratingStar1'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="1" /><label class = "full pb-0 mb-0" [attr.for]="'ratingStar1'+i+film.filename.split('.')[0]" title="1" ></label>
+                            <input type="radio" [attr.id]="'ratingStar5'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="5" [attr.disabled]="true" readonly/><label class = "full pb-0 mb-0" [attr.for]="'ratingStar5'+i+film.filename.split('.')[0]" title="5"></label>
+                            <input type="radio" [attr.id]="'ratingStar4'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="4" [attr.disabled]="true" readonly/><label class="full pb-0 mb-0" [attr.for]="'ratingStar4'+i+film.filename.split('.')[0]" title="4"></label>
+                            <input type="radio" [attr.id]="'ratingStar3'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="3" [attr.disabled]="true" readonly/><label class = "full pb-0 mb-0" [attr.for]="'ratingStar3'+i+film.filename.split('.')[0]" title="3"></label>
+                            <input type="radio" [attr.id]="'ratingStar2'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="2" [attr.disabled]="true" readonly/><label class="full pb-0 mb-0" [attr.for]="'ratingStar2'+i+film.filename.split('.')[0]" title="2"></label>
+                            <input type="radio" [attr.id]="'ratingStar1'+i+film.filename.split('.')[0]" [attr.name]="'ratingStar'+i" value="1" [attr.disabled]="true" readonly/><label class = "full pb-0 mb-0" [attr.for]="'ratingStar1'+i+film.filename.split('.')[0]" title="1"></label>
                         </fieldset>
                     </div>
                     <hr *ngIf="!isLast" class="mt-1 mx-4">

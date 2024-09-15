@@ -53,7 +53,7 @@ export class RegisterComponent {
         "application/json"
       ).then(
         response => {
-          this.axiosService.setAuthToken(response.data.body.AccessToken, response.data.role);
+          this.axiosService.setAuthToken(response.data.AccessToken, response.data.role);
           this.router.navigate(['films']);
         }
       ).catch(

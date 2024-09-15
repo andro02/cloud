@@ -56,7 +56,7 @@ export class FilmViewComponent {
       const rating = this.ratings![i].rating;
       const inputId = `ratingStar${rating}${i}${name}`;
       const inputElement = document.getElementById(inputId) as HTMLInputElement;
-      inputElement.click();
+      inputElement.checked = true;
     }
   }
 

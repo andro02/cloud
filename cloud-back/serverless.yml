@@ -61,12 +61,18 @@ provider:
             - dynamodb:PutItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
+            - dynamodb:Query
           Resource:
             - "Fn::GetAtt": [films, Arn]
             - "Fn::GetAtt": [favourites, Arn]
             - "Fn::GetAtt": [counterTable, Arn]
             - "Fn::GetAtt": [notifications, Arn]
             - "Fn::GetAtt": [ratings, Arn]
+            - "arn:aws:dynamodb:eu-central-1:211125334107:table/films-table/index/actors-index"
+            - "arn:aws:dynamodb:eu-central-1:211125334107:table/films-table/index/description-index"
+            - "arn:aws:dynamodb:eu-central-1:211125334107:table/films-table/index/director-index"
+            - "arn:aws:dynamodb:eu-central-1:211125334107:table/films-table/index/genre-index"
+            - "arn:aws:dynamodb:eu-central-1:211125334107:table/films-table/index/name-index"
         - Effect: Allow
           Action:
             - ses:SendEmail

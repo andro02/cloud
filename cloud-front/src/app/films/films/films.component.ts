@@ -86,7 +86,7 @@ export class FilmsComponent implements OnInit{
       "application/json"
     ).then(
       response => {
-        this.films = response.data.data;
+        this.films = response.data;
         this.filteredFilms = this.films;
       }
     );
