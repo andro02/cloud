@@ -78,40 +78,27 @@ export class FilmCreateComponent {
       const fileToUpload = this.uploadFileForm.controls["fileToUpload"].value;
       const filename = fileToUpload['name'];
 
-      const query = "?filename=" + filename;
-
-      const fileInformation = {
-        'filename': filename,
-        'type': fileToUpload['type'],
-        'size': fileToUpload['size'],
-        'lastModifiedDate': fileToUpload['lastModifiedDate'],
-        'creationDate': fileToUpload['lastModifiedDate'],
-        'name': uploadFileData.name,
-        'description': uploadFileData.description,
-        'director': uploadFileData.director,
-        'genre': uploadFileData.genre,
-        'actors': uploadFileData.actors,
-        'releaseDate': uploadFileData.releaseDate,
-        'userEmail': this.axiosService.getEmail()
-      }
+      const query = "?filename=" + filename
+        + "&type=" + fileToUpload['type']
+        + "&size=" + fileToUpload['size']
+        + "&lastModifiedDate=" + fileToUpload['lastModifiedDate']
+        + "&creationDate=" + fileToUpload['lastModifiedDate']
+        + "&name=" + uploadFileData.name
+        + "&description=" + uploadFileData.description
+        + "&director=" + uploadFileData.director
+        + "&genre=" + uploadFileData.genre
+        + "&actors=" + uploadFileData.actors
+        + "&releaseDate=" + uploadFileData.releaseDate
+        + "&userEmail=" + this.axiosService.getEmail();
 
       this.axiosService.request(
         "POST",
-        "/uploadFilm" + query,
+        "/film" + query,
         fileToUpload,
         "multipart/form-data"
       ).then(
         response => {
-          this.axiosService.request(
-          "POST",
-          "/film",
-          fileInformation,
-          "application/json"
-          ).then(
-            response => {
-              this.router.navigate(['films']);
-            }
-          );
+          this.router.navigate(['films']);
         }
       );
     }

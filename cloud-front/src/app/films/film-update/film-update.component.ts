@@ -130,40 +130,27 @@ export class FilmUpdateComponent {
       const fileToUpload = this.filmForm.controls["fileToUpload"].value;
       const filename = fileToUpload['name'];
 
-      const query = "?filename=" + filename;
-
-      const fileInformation = {
-        'filename': filename,
-        'type': fileToUpload['type'],
-        'size': fileToUpload['size'],
-        'lastModifiedDate': fileToUpload['lastModifiedDate'],
-        'creationDate': fileToUpload['lastModifiedDate'],
-        'name': uploadFileData.name,
-        'description': uploadFileData.description,
-        'director': uploadFileData.director,
-        'genre': uploadFileData.genre,
-        'actors': uploadFileData.actors,
-        'releaseDate': uploadFileData.releaseDate,
-        'userEmail': this.axiosService.getEmail()
-      }
+      const query = "?filename=" + this.filename
+        + "&type=" + fileToUpload['type']
+        + "&size=" + fileToUpload['size']
+        + "&lastModifiedDate=" + fileToUpload['lastModifiedDate']
+        + "&creationDate=" + fileToUpload['lastModifiedDate']
+        + "&name=" + uploadFileData.name
+        + "&description=" + uploadFileData.description
+        + "&director=" + uploadFileData.director
+        + "&genre=" + uploadFileData.genre
+        + "&actors=" + uploadFileData.actors
+        + "&releaseDate=" + uploadFileData.releaseDate
+        + "&userEmail=" + this.axiosService.getEmail();
 
       this.axiosService.request(
         "PUT",
-        "/updateFile" + query,
+        "/updateFilm" + query,
         fileToUpload,
         "multipart/form-data"
       ).then(
         response => {
-          this.axiosService.request(
-          "PUT",
-          "/updateFilm" + query,
-          fileInformation,
-          "application/json"
-          ).then(
-            response => {
-              this.router.navigate(['films']);
-            }
-          );
+          this.router.navigate(['films']);
         }
       );
     }
@@ -176,21 +163,12 @@ export class FilmUpdateComponent {
     
       this.axiosService.request(
         "DELETE",
-        "/deleteFile?filename=" + this.filename,
+        "/film/filename?filename=" + this.filename,
         null,
         "application/json"
       ).then(
         response => {
-          this.axiosService.request(
-          "DELETE",
-          "/film/filename?filename=" + this.filename,
-          null,
-          "application/json"
-          ).then(
-            response => {
-              this.router.navigate(['films']);
-            }
-          );
+          this.router.navigate(['films']);
         }
       );
       

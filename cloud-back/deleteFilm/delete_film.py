@@ -22,10 +22,14 @@ def delete(event, context):
     )
     
     if response.get('ResponseMetadata', {}).get('HTTPStatusCode') == 200:
-            body = {
-                'message': 'Successfully deleted film'
-            }
-            return create_response(200, body)
+            
+        s3 = boto3.client("s3")
+        
+        response = s3.delete_object(Bucket="film-bucket",Key=filename)
+        body = {
+            'message': 'Successfully deleted film'
+        }
+        return create_response(200, body)
     else:
         body = {
             'message': 'Failed to delete film'

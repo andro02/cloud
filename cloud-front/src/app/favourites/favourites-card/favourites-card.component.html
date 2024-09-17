@@ -1,8 +1,8 @@
 <div class="card mt-5" style="width: 22rem;">
     <div class="card-body">
-      <h5 class="card-title">Subscribed to: {{favourite.name}}</h5>
+      <h5 class="card-title">Subscribed to: {{favourite.replace('_', ' ')}}</h5>
       <form>
-        <button (click)="unsubscribe()" class="btn btn-danger">Unsubscribe</button>
+        <button type="button" (click)="unsubscribe(favourite)" class="btn btn-danger">Unsubscribe</button>
       </form>
     </div>
   </div>
